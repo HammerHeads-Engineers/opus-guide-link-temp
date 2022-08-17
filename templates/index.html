@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Instruction</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Catamaran:wght@100;200;500&display=swap" rel="stylesheet">
+        <link rel="shortcut icon" href="{{ url_for('static', filename='icon.png') }}">
+        <style type="text/css">
+            body {
+                font-family: 'Catamaran', sans-serif;
+                font-weight: 200;
+                font-size: 16px;
+                line-height: 1.4286;
+                background-color: #fafafa;
+            }
+            body {
+                margin: 0;
+                height: 100vh;
+            }
+            h1,h2,h3,h4,h5,h6 {
+              font-weight: 200;
+            }
+            /*Buttons */
+            .button {
+              margin: 4px;
+              margin-right: 2px;
+              margin-left: 2px;
+              border-radius: 12px;
+              border: solid 0.5px;
+              font-size: 14px;
+              font-weight: 500;
+              padding: 8px 16px;
+              min-height: calc(16px + 1.42857143em);
+              background: white;
+              text-transform: uppercase;
+            }
+            .button:hover {
+                background-color: rgba(153,153,153,0.2);
+                cursor: pointer;
+            }
+            .button:active {
+                color: #DD4A48;
+                background-color: rgba(153,153,153,0.4);
+            }
+
+            .icon_right {
+                margin-left: 8px;
+            }
+            .icon_left {
+                margin-right: 8px;
+            }
+            pre, code {
+              font-size: 14px;
+              background-color: #eee;
+              border-radius: 4px;
+              border: 1px solid #999;
+              display: block;
+              padding: 4px;
+            }
+
+            a:link {
+                text-decoration: none;
+            }
+
+            #finish_button_other{
+                margin: auto;
+                margin-top: 3vh;
+                margin-bottom: 3vh;
+            }
+
+            .link {
+                color: #DD4A48;
+                padding: 4px;
+
+            }
+            .link:hover {
+                text-decoration: underline;
+            }
+
+            .card {
+                /*line-height: 12px;*/
+                margin: 4px;
+                margin-top: 8px;
+                margin-bottom: 8px;
+                padding: 8px;
+                border: solid 0.5px;
+                border-radius: 14px;
+                height: auto;
+            }
+            .no_card {
+                margin: 4px;
+                margin-top: 8px;
+                margin-bottom: 8px;
+            }
+            .images_grid {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                padding: 0px;
+                margin: 0px;
+            }
+
+            img {
+                width: 100%;
+                /*margin: 0px;*/
+                /*margin-bottom: -7px;*/
+                /*border: solid 0.5px;*/
+                border-radius: 14px;
+                height: auto;
+                border: solid 0.5px;
+                /*margin-top: 8px;
+                margin-bottom: 8px;*/
+                /*margin: 4px;*/
+            }
+
+            .header {
+                line-height: 36px;
+                height: auto;
+                text-align: left;
+                background: white;
+                border-bottom: solid 0.5px;
+            }
+            .header_text{
+                padding: 0;
+                margin: 4px;
+                margin-bottom: -16px;
+                margin-left: 1vw;
+                margin-right: 1vw;
+                font-size: 24px;
+
+            }
+            #toggle-sidebar {
+                transition: left 0.4s cubic-bezier(0.25, 1, 0.25, 1), width 0.4s cubic-bezier(0.25, 1, 0.25, 1), transform 0.4s cubic-bezier(0.5, 2, 0.5, 0.5);
+                outline: 0;
+                transform: scale(1);
+                cursor: pointer;
+            }
+            #sidebar {
+                padding-top: 32px;
+                padding-bottom: 32px;
+                text-align: left;
+                color: black;
+
+                transition: left 0.4s cubic-bezier(0.25, 1, 0.25, 1), width 0.4s cubic-bezier(0.25, 1, 0.25, 1);
+                z-index: 10;
+                background: white;
+                border-right: solid 0.5px;
+                overflow: auto;
+                max-width: 23vw;
+            }
+            .sidebar_item{
+                color: black;
+                border-radius: 12px;
+                border: solid 0.5px gray;
+                border-right: none;
+                border-top-right-radius: 0;
+                border-bottom-right-radius: 0;
+                margin: 4px;
+                margin-right: 0;
+                padding: 4px 8px;
+                /*padding-right: 16px;
+                padding-left: 16px; */
+                /*width: %;*/
+                font-size: 18px;
+            }
+            .sidebar_item:hover {
+                background-color: rgba(0,0,0,.08);
+                cursor: pointer;
+            }
+            .sidebar_item:active {
+                color: #DD4A48;
+                background-color: rgba(153,153,153,0.4);
+            }
+
+            #steps_control_div {
+                line-height: 12px;
+                display: grid;
+                grid-template-columns: auto 1fr;
+                grid-template-areas: "counter control_buttons";
+            }
+            #counter {
+                grid-area: counter;
+            }
+            #control_buttons {
+                text-align: right;
+                grid-area: control_buttons
+            }
+
+
+            /* main grid stuff*/
+            body {
+                display: grid;
+                grid-template-rows: auto 1fr;
+                grid-template-columns: auto 1fr;
+                grid-template-areas: "header header""sidebar main_grid";
+            }
+
+            #header {
+                grid-area: header;
+            }
+            #header_button{
+                display: none;
+                grid-area: header_button;
+            }
+
+            #sidebar {
+                grid-area: sidebar;
+            }
+
+            #main_grid {
+                margin: 0px;
+                padding: 0px;
+                grid-area: main_grid;
+                overflow: auto;
+                /*overflow: auto;*/
+            }
+            #content {
+                margin: auto;
+                padding: 0px;
+                max-width: 960px;
+            }
+
+
+            /* Show menu button buttons */
+            @media (max-width: 720px) {
+                body {
+                    grid-template-columns: 50px auto;
+                    grid-template-areas: "header_button header""main_grid main_grid";
+                }
+                .images_grid {
+                    grid-template-columns: auto;
+                }
+                #header_button {
+                    display: inline;
+                }
+
+                #sidebar {
+                    max-width: 100vw;
+                    grid-area: main_grid;
+                    position: relative;
+                    left: -100%;
+                }
+
+                #sidebar.collapsed {
+                    left: 0%;
+                }
+            }
+        </style>
+        <!--link rel="stylesheet" href="./style.css"-->
+    </head>
+    <body>
+        <!-- partial:index.partial.html -->
+
+        <!-- header -->
+        <div id="header_button" class="header">
+            <button id="toggle-sidebar" class="button"><i class="fa fa-bars"></i></button>
+        </div>
+        <div id="header" class="header">
+            <!--p>Stuff</p-->
+            <h1 class="header_text">Opus • Guide<h1>
+        </div>
+
+        <!-- sidebar to be populated by javascript -->
+        <div id="sidebar">
+        </div>
+
+        <div id="main_grid">
+            <div id="content">
+
+
+                <div id="steps_control_div" class="no_card" style="display: none">
+                    <div id="counter">
+                        <h3 id="counter_text"></h3>
+                    </div>
+                    <div id="control_buttons">
+                        <button id="previous_button" class="button" style="display: none"><i class="fa fa-arrow-left"></i></button>
+                        <button id="next_button" class="button" style="display: none">Next<i class="fa fa-arrow-right icon_right"></i></button>
+                        <button id="finish_button" class="button" style="display: none"><i class="fa fa-check icon_left"></i>Finish</button>
+                    </div>
+                    
+                </div>
+
+                <div id="step_content">
+                    
+                </div>
+                <button id="finish_button_other" class="button" style="display: none"><i class="fa fa-check icon_left"></i>Finish</button>
+                
+            </div>
+        </div>
+        <script src="{{url_for('static', filename='data_script.js')}}"></script>
+        <script src="{{url_for('static', filename='script.js')}}"></script>
+    </body>
+</html>
