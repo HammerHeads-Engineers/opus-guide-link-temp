@@ -213,8 +213,8 @@ function set_data(data) {
 
 }
 
-function get_instruction() {
-	fetch('https://opusguide.anvil.app/_/api/get_instruction/62092f00-deb7-4cad-8e0b-0c', {mode: 'cors'})
+function get_instruction(link_uid) {
+	fetch('https://opusguide.anvil.app/_/api/get_instruction/' + link_uid, {mode: 'cors'})
   		.then((response) =>
   			response.json()
   		)
@@ -227,5 +227,3 @@ function get_instruction() {
  		});
 
 }
-
-get_instruction()

@@ -9,4 +9,4 @@ def hello():
 
 @app.route('/<link_uid>/')
 def capitalize(link_uid):
-    return f'<h1>{link_uid}</h1>'
+    return render_template('index.html', link_uid=link_uid)

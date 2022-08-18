@@ -309,5 +309,8 @@
         </div>
         <script src="{{url_for('static', filename='data_script.js')}}"></script>
         <script src="{{url_for('static', filename='script.js')}}"></script>
+        <script type="text/javascript">
+            get_instruction("{{ link_uid }}");
+        </script>
     </body>
 </html>
