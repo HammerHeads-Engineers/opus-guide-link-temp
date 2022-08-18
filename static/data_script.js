@@ -214,7 +214,7 @@ function set_data(data) {
 }
 
 function get_instruction(link_uid) {
-	fetch('https://opusguide.anvil.app/_/api/get_instruction/' + link_uid, {mode:"cors",credentials:"include"})
+	fetch('https://opusguide.anvil.app/_/api/get_instruction/' + link_uid, {credentials:"include"})
   		.then((response) =>
   			response.json()
   		)
