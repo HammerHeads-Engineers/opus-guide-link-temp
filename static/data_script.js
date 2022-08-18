@@ -214,7 +214,7 @@ function set_data(data) {
 }
 
 function get_instruction(link_uid) {
-	fetch('https://app.opus.guide/_/api/get_instruction/' + link_uid)
+	fetch('https://app.opus.guide/_/api/get_instruction/' + link_uid, {credentials:"include"})
   		.then((response) =>
   			response.json()
   		)
