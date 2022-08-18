@@ -31,6 +31,8 @@
               margin-left: 2px;
               border-radius: 12px;
               border: solid 0.5px;
+              border-color: black;
+              color: black;
               font-size: 14px;
               font-weight: 500;
               padding: 8px 16px;
@@ -217,7 +219,6 @@
                 overflow: auto;
             }
             #content {
-                min-height: 115vh;
                 margin: auto;
                 padding: 0px;
                 max-width: 960px;
@@ -246,6 +247,12 @@
 
                 #sidebar.collapsed {
                     left: 0%;
+                }
+                #content {
+                    min-height: 115vh;
+                }
+                #sidebar_div {
+                    min-height: 105vh;
                 }
             }
         </style>
