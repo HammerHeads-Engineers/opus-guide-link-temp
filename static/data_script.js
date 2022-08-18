@@ -218,13 +218,12 @@ function get_instruction() {
   		.then((response) =>
   			response.json()
   		)
-  		.then((data) => 
+  		.then((data) => {
+  			document.querySelector("#not_found_div").style.display = "inline";
   			if (data) {
   				set_data(data); /*if data is good*/
-  			} else {
-  				document.querySelector("#not_found_div").style.display = "inline";
   			}
- 		);
+ 		});
 
 }
 
