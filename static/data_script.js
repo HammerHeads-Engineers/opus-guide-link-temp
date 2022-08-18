@@ -221,6 +221,8 @@ function get_instruction() {
   		.then((data) => 
   			if (data) {
   				set_data(data); /*if data is good*/
+  			} else {
+  				document.querySelector("#not_found_div").style.display = "block";
   			}
  		);
 
