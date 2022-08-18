@@ -173,7 +173,10 @@ function set_data(data) {
 		/*set the sidebar*/
 		instruction_json["steps"].forEach(function(step_item, index) {
 			side_link = create_sidebar_component(step_item);
-			side_link.onclick = function () {show_any_step( index + 1 );}
+			side_link.onclick = function () {
+				toggle_sidebar();
+				show_any_step( index + 1 );
+			}
 			document.querySelector("#sidebar").appendChild(side_link)
 		})
 		document.querySelector("#steps_control_div").style.display = "grid"
@@ -189,6 +192,7 @@ function set_data(data) {
 
 			side_link = create_sidebar_component(step_item);
 			side_link.onclick = function () {
+				toggle_sidebar();
 				document.querySelector("#" + "step_" + index.toString()).scrollIntoView({behavior: "smooth", block: "start", inline: "nearest"})
 			};
 			document.querySelector("#sidebar").appendChild(side_link);
