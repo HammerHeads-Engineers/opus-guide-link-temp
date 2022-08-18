@@ -214,7 +214,7 @@ function set_data(data) {
 }
 
 function get_instruction(link_uid) {
-	fetch('https://app.opus.guide/_/api/get_instruction/' + link_uid, {mode:"cors", credentials:"include", headers:{"Access-Control-Allow-Origin": "https://app.opus.guide"})
+	fetch('https://app.opus.guide/_/api/get_instruction/' + link_uid, {mode:"cors", credentials:"include", headers:{"Access-Control-Allow-Origin": "https://app.opus.guide"}})
   		.then((response) =>
   			response.json()
   		)
