@@ -1,9 +1,12 @@
+var link_uid = ""
+
 function create_instruction_item(item_data) {
 	text = document.createElement("h3")
 	text.className = "standard_h"
 	text.innerText = item_data["name"]
 
 	ahref = document.createElement("a")
+	ahref.href = "https://link.opus.guide/r/" + link_uid +"/" + item_data["uid"]
 	card = document.createElement("div")
 	card.className = "card instruction_item"
 
@@ -44,7 +47,8 @@ function set_data(data) {
 
 
 
-function get_role_folder(link_uid) {
+function get_role_folder(link) {
+	link_uid = link;
 	fetch('https://app.opus.guide/_/api/get_role/' + link_uid, {credentials:"include"})
   		.then((response) =>
   			response.json()
