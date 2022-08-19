@@ -23,6 +23,6 @@ def preview_instruction(link_uid):
 def role(link_uid):
 	return render_template("role.html", link_uid=link_uid)
 
-@app.route("/r/<rolelink>/<instruction_link>")
-def role(role_link, instruction_uid):
+@app.route("/r/<role_link>/<instruction_uid>/")
+def role_instruction(role_link, instruction_uid):
 	return render_template("instruction.html", role_link=role_link, instruction_uid=instruction_uid)
