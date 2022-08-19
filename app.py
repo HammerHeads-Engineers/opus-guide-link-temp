@@ -9,12 +9,16 @@ app = Flask(__name__)
 
 @app.errorhandler(404)
 def page_not_found(e):
-    return render_template('index.html'), 404
+    return render_template('instruction.html'), 404
 
 @app.route('/<link_uid>/')
 def show_instruction(link_uid):
-    return render_template('index.html', link_uid=link_uid)
+    return render_template('instruction.html', link_uid=link_uid)
 
-@app.route('/preview/<link_uid>')
+@app.route('/preview/<link_uid>/')
 def preview_instruction(link_uid):
-	return render_template('index.html', link_uid=link_uid)
+	return render_template('instruction.html', link_uid=link_uid)
+
+@app.route("/r/")
+def role():
+	return render_template("role.html")
