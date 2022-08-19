@@ -1,0 +1,100 @@
+            body {
+                font-family: 'Catamaran', sans-serif;
+                font-weight: 200;
+                font-size: 16px;
+                line-height: 1.4286;
+                background-color: #fafafa;
+            }
+            a {
+                all: unset;
+            }
+            a:hover {
+                cursor: pointer;
+            }
+            body {
+                margin: 0;
+                height: 100vh;
+            }
+            h1,h2,h3,h4,h5,h6 {
+              font-weight: 200;
+            }
+
+            pre, code {
+              font-size: 14px;
+              background-color: #eee;
+              border-radius: 4px;
+              border: 1px solid #999;
+              display: block;
+              padding: 4px;
+            }
+
+            img {
+                width: 100%;
+                /*margin: 0px;*/
+                /*margin-bottom: -7px;*/
+                /*border: solid 0.5px;*/
+                border-radius: 14px;
+                height: auto;
+                border: solid 0.5px;
+                /*margin-top: 8px;
+                margin-bottom: 8px;*/
+                /*margin: 4px;*/
+            }
+
+
+
+
+
+
+
+            .spacer {
+                height: 10vh;
+            }
+            .standard_h {
+                padding: 0;
+                margin: 4px;
+            }
+
+
+
+
+            .button:hover {
+                background-color: rgba(153,153,153,0.2);
+                cursor: pointer;
+            }
+            .button:active {
+                color: #DD4A48;
+                background-color: rgba(153,153,153,0.4);
+            }
+            .icon_right {
+                margin-left: 8px;
+            }
+            .icon_left {
+                margin-right: 8px;
+            }
+
+
+            .link {
+                color: #DD4A48;
+                padding: 4px;
+
+            }
+            .link:hover {
+                text-decoration: underline;
+            }
+
+            .card {
+                /*line-height: 12px;*/
+                margin: 4px;
+                margin-top: 8px;
+                margin-bottom: 8px;
+                padding: 8px;
+                border: solid 0.5px;
+                border-radius: 14px;
+                height: auto;
+            }
+            .no_card {
+                margin: 4px;
+                margin-top: 8px;
+                margin-bottom: 8px;
+            }
