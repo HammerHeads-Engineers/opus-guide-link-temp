@@ -204,21 +204,13 @@
             body {
                 display: grid;
                 grid-template-rows: auto 1fr;
-                grid-template-columns: auto auto;
-                grid-template-areas: "header header""main_grid main_grid";
+                grid-template-areas: "header""main_grid";
             }
 
             #header {
                 grid-area: header;
             }
-            #header_button{
-                display: none;
-                grid-area: header_button;
-            }
 
-            #sidebar {
-                grid-area: sidebar;
-            }
 
             #main_grid {
                 margin: 0px;
@@ -232,8 +224,6 @@
                 max-width: 960px;
             }
 
-
-            /* Show menu button buttons */
             @media (max-width: 720px) {
 
                 #content {
@@ -251,8 +241,6 @@
             <!--p>Stuff</p-->
             <h1 class="header_text">Opus • Guide<h1>
         </div>
-
-        <!-- sidebar to be populated by javascript -->
 
         <div id="main_grid">
             <div id="content">
