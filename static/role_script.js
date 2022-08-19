@@ -18,6 +18,7 @@ function create_instruction_item(item_data) {
 
 	text_div.appendChild(text);
 	card.appendChild(text_div);
+	button_div.appendChild(button);
 	card.appendChild(button_div);
 	ahref.appendChild(card);
 
