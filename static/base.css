@@ -55,7 +55,23 @@
                 margin: 4px;
             }
 
-
+            .button {
+              margin: 4px;
+              margin-right: 2px;
+              margin-left: 2px;
+              border-radius: 12px;
+              border: solid 0.5px;
+              border-color: black;
+              color: black;
+              font-size: 14px;
+              font-weight: 500;
+              padding: 8px 16px;
+              min-height: calc(16px + 1.42857143em);
+              background: white;
+              text-transform: uppercase;
+              vertical-align: middle;
+              margin: auto;
+            }
 
 
             .button:hover {
@@ -97,4 +113,22 @@
                 margin: 4px;
                 margin-top: 8px;
                 margin-bottom: 8px;
+            }
+
+
+            .header {
+                line-height: 36px;
+                height: auto;
+                text-align: left;
+                background: white;
+                border-bottom: solid 0.5px;
+            }
+            .header_text{
+                padding: 0;
+                margin: 4px;
+                margin-bottom: -16px;
+                margin-left: 1vw;
+                margin-right: 1vw;
+                font-size: 24px;
+
             }

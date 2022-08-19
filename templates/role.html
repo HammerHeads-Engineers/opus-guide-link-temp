@@ -12,118 +12,11 @@
         <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='base.css') }}">
         <style type="text/css">
 
-            /*Buttons */
-            .button {
-              margin: 4px;
-              margin-right: 2px;
-              margin-left: 2px;
-              border-radius: 12px;
-              border: solid 0.5px;
-              border-color: black;
-              color: black;
-              font-size: 14px;
-              font-weight: 500;
-              padding: 8px 16px;
-              min-height: calc(16px + 1.42857143em);
-              background: white;
-              text-transform: uppercase;
-              vertical-align: middle;
-              margin: auto;
-              margin-top: auto;
-              margin-bottom: auto;
-            }
-
-            #finish_button_other{
-                margin: auto;
-                margin-top: 3vh;
-                margin-bottom: 3vh;
-            }
-
-            .images_grid {
-                display: grid;
-                grid-template-columns: 1fr 1fr;
-                padding: 0px;
-                margin: 0px;
-            }
             #not_found_div {
                 margin-top: 20vh;
                 margin-bottom: 20vh;
                 text-align: center;
             }
-
-            .header {
-                line-height: 36px;
-                height: auto;
-                text-align: left;
-                background: white;
-                border-bottom: solid 0.5px;
-            }
-            .header_text{
-                padding: 0;
-                margin: 4px;
-                margin-bottom: -16px;
-                margin-left: 1vw;
-                margin-right: 1vw;
-                font-size: 24px;
-
-            }
-            #toggle-sidebar {
-                transition: left 0.4s cubic-bezier(0.25, 1, 0.25, 1), width 0.4s cubic-bezier(0.25, 1, 0.25, 1), transform 0.4s cubic-bezier(0.5, 2, 0.5, 0.5);
-                outline: 0;
-                transform: scale(1);
-                cursor: pointer;
-            }
-            #sidebar {
-                padding-top: 32px;
-                padding-bottom: 32px;
-                text-align: left;
-                color: black;
-
-                transition: left 0.4s cubic-bezier(0.25, 1, 0.25, 1), width 0.4s cubic-bezier(0.25, 1, 0.25, 1);
-                z-index: 10;
-                background: white;
-                border-right: solid 0.5px;
-                overflow: auto;
-                max-width: 23vw;
-            }
-            .sidebar_item{
-                color: black;
-                border-radius: 12px;
-                border: solid 0.5px gray;
-                border-right: none;
-                border-top-right-radius: 0;
-                border-bottom-right-radius: 0;
-                margin: 4px;
-                margin-right: 0;
-                padding: 4px 8px;
-                /*padding-right: 16px;
-                padding-left: 16px; */
-                /*width: %;*/
-                font-size: 18px;
-            }
-            .sidebar_item:hover {
-                background-color: rgba(0,0,0,.08);
-                cursor: pointer;
-            }
-            .sidebar_item:active {
-                color: #DD4A48;
-                background-color: rgba(153,153,153,0.4);
-            }
-
-            #steps_control_div {
-                line-height: 12px;
-                display: grid;
-                grid-template-columns: auto 1fr;
-                grid-template-areas: "counter control_buttons";
-            }
-            #counter {
-                grid-area: counter;
-            }
-            #control_buttons {
-                text-align: right;
-                grid-area: control_buttons
-            }
-
             .instruction_item {
                 display: grid;
                 grid-template-columns: 1fr auto;
@@ -137,7 +30,6 @@
                 grid-area: "instruction_item_button";
             }
 
-
             /* main grid stuff*/
             body {
                 display: grid;
@@ -148,8 +40,6 @@
             #header {
                 grid-area: header;
             }
-
-
             #main_grid {
                 margin: 0px;
                 padding: 0px;

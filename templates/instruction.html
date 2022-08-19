@@ -9,25 +9,9 @@
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Catamaran:wght@100;200;500&display=swap" rel="stylesheet">
         <link rel="shortcut icon" href="{{ url_for('static', filename='icon.png') }}">
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='base.css') }}">
         <style type="text/css">
 
-
-            /*Buttons */
-            .button {
-              margin: 4px;
-              margin-right: 2px;
-              margin-left: 2px;
-              border-radius: 12px;
-              border: solid 0.5px;
-              border-color: black;
-              color: black;
-              font-size: 14px;
-              font-weight: 500;
-              padding: 8px 16px;
-              min-height: calc(16px + 1.42857143em);
-              background: white;
-              text-transform: uppercase;
-            }
 
 
 
@@ -50,22 +34,6 @@
                 text-align: center;
             }
 
-            .header {
-                line-height: 36px;
-                height: auto;
-                text-align: left;
-                background: white;
-                border-bottom: solid 0.5px;
-            }
-            .header_text{
-                padding: 0;
-                margin: 4px;
-                margin-bottom: -16px;
-                margin-left: 1vw;
-                margin-right: 1vw;
-                font-size: 24px;
-
-            }
             #toggle-sidebar {
                 transition: left 0.4s cubic-bezier(0.25, 1, 0.25, 1), width 0.4s cubic-bezier(0.25, 1, 0.25, 1), transform 0.4s cubic-bezier(0.5, 2, 0.5, 0.5);
                 outline: 0;
