@@ -1,10 +1,38 @@
+function create_instruction_item(item_data) {
+	text = document.createElement("h3")
+	text.className = "standard_h"
+	text.innerText = item_data["name"]
 
+	ahref = document.createElement("a")
+	card = document.createElement("div")
+	card.className = "card instruction_item"
+
+	text_div = document.createElement("div")
+	text_div.className = "instruction_item_text"
+	button_div = document.createElement("div")
+	button_div.className = "instruction_item_button"
+
+	text_div.appendChild(text);
+	card.appendChild(text_div);
+	card.appendChild(button_div);
+	ahref.appendChild(card);
+
+	return ahref
+
+}
 
 function set_data(data) {
 	console.log(data);
 	document.title = data["name"];
 	header_name = document.querySelector(".header_text");
 	header_name.innerText = data["name"];
+
+	data["instructions"].forEach(function(item_data) {
+		elem = create_instruction_item(item_data);
+		container = document.querySelector("#instructions_content");
+		container.appendChild(elem);
+
+	})
 
 }
 
