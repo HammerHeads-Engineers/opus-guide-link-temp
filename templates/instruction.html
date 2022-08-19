@@ -204,7 +204,11 @@
         <script src="{{url_for('static', filename='data_script.js')}}"></script>
         <script src="{{url_for('static', filename='script.js')}}"></script>
         <script type="text/javascript">
-            get_instruction("{{ link_uid }}");
+            {% if link_uid is defined %}
+                get_instruction("{{ link_uid }}");
+            {% elif role_link is defined %}
+                get_instruction_by_role("{{ role_link }}", "{{ instruction_uid }}")
+            {% endif %}
         </script>
     </body>
 </html>
