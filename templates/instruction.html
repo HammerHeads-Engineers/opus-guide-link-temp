@@ -209,6 +209,8 @@
                 get_instruction("{{ link_uid }}");    
             {% elif role_link is defined %}
                 get_instruction_by_role("{{ role_link }}", "{{ instruction_uid }}")
+            {% else %}
+                get_instruction("")
             {% endif %}
         </script>
     </body>
