@@ -199,6 +199,19 @@
                 grid-area: control_buttons
             }
 
+            .instruction_item {
+                display: grid;
+                grid-template-columns: 1fr auto;
+                grid-template-areas: "instruction_item_text" "instruction_item_button";
+            }
+            .instruction_item_text {
+                grid-area: "instruction_item_text";
+
+            }
+            .instruction_item_button {
+                grid-area: "instruction_item_button";
+            }
+
 
             /* main grid stuff*/
             body {
@@ -253,9 +266,9 @@
 
 
                 <div id="instructions_content">
-                    <div class="card">
-                        <h3>Instructions</h3>
-                        <button class="button">Nice</button>
+                    <div class="card instruction_item">
+                        <h3 class="instruction_item_text">Instructions</h3>
+                        <button class="button instruction_item_button">Nice</button>
                     </div>
                 </div>
 
