@@ -69,8 +69,8 @@
               min-height: calc(16px + 1.42857143em);
               background: white;
               text-transform: uppercase;
-              vertical-align: middle;
-              margin: auto;
+              /*vertical-align: middle;
+              margin: auto;*/
             }
 
 
