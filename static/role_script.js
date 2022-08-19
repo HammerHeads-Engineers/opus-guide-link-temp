@@ -14,7 +14,7 @@ function create_instruction_item(item_data) {
 
 	button = document.createElement("button")
 	button.className = "button"
-	button.innerHtml = "<i class='fa fa-arrow-right'></i>"
+	button.innerHTML = "<i class='fa fa-arrow-right'></i>"
 
 	text_div.appendChild(text);
 	card.appendChild(text_div);
