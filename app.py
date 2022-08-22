@@ -11,6 +11,9 @@ app = Flask(__name__)
 def page_not_found(e):
     return render_template('instruction.html'), 404
 
+
+#links
+
 @app.route('/<link_uid>/')
 def show_instruction(link_uid):
     return render_template('instruction.html', link_uid=link_uid)
@@ -19,6 +22,7 @@ def show_instruction(link_uid):
 def preview_instruction(link_uid):
 	return render_template('instruction.html', link_uid=link_uid)
 
+#group links
 @app.route("/r/<link_uid>/")
 def role(link_uid):
 	return render_template("role.html", link_uid=link_uid)
