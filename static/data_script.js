@@ -103,6 +103,9 @@ function create_step(step_data, url_data) {
 function create_image_grid(step_data, url_data) {
 	image_grid = document.createElement("div");
 	image_grid.className = "images_grid"
+	if (step_data["images"].length == 1) {
+		image_grid.style.gridTemplateColumns = "1fr"; /*quick fix */
+	}
 
 	step_data["images"].forEach(function(image_uid){
 		div = document.createElement("div");
