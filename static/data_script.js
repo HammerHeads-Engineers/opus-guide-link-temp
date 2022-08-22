@@ -147,6 +147,17 @@ function bind_buttons() {
 	document.querySelector("#previous_button").onclick = previous_step
 }
 
+function set_finish_url(instruction_data) {
+	if (instruction_data["redirect_url"]) {
+		document.querySelector("#finish_button").onclick = function(){window.location.href = get_link(instruction_data["redirect_url"])};
+		document.querySelector("#finish_button_other").onclick = function(){window.location.href = get_link(instruction_data["redirect_url"])};
+	} else {
+		document.querySelector("#finish_button").onclick = function(){window.location.href = "https://opus.guide"};
+		document.querySelector("#finish_button_other").onclick = function(){window.location.href = "https://opus.guide"};
+	}
+
+}
+
 function set_data(data) {
 	instruction_json = data["instruction"];
 	url_dict = data["url_dict"];
@@ -159,14 +170,6 @@ function set_data(data) {
 
 	counter_text = document.querySelector("#counter_text");
 	counter_text.innerText = step_number.toString() + " / " + data["instruction"]["steps"].length.toString()
-	/*set the url */
-	if (data["instruction"]["redirect_url"]) {
-		document.querySelector("#finish_button").onclick = function(){window.location.href = get_link(data["instruction"]["redirect_url"])};
-		document.querySelector("#finish_button_other").onclick = function(){window.location.href = get_link(data["instruction"]["redirect_url"])};
-	} else {
-		document.querySelector("#finish_button").onclick = function(){window.location.href = "https://opus.guide"};
-		document.querySelector("#finish_button_other").onclick = function(){window.location.href = "https://opus.guide"};
-	}
 
 
 	if (instruction_json["show_steps"] == null || instruction_json["show_steps"] == true) {
@@ -220,6 +223,7 @@ function get_instruction(link_uid) {
   		)
   		.then((data) => {
   			if (data) {
+  				set_finish_url(data["instruction"])
   				set_data(data); /*if data is good*/
   			} else {
   				document.querySelector("#not_found_div").style.display = "inline";
@@ -235,6 +239,8 @@ function get_instruction_by_role(role_link, instruction_uid) {
   		)
   		.then((data) => {
   			if (data) {
+  				document.querySelector("#finish_button").onclick = function(){window.location.href = "https://link.opus.guide/r/" + role_link};
+				document.querySelector("#finish_button_other").onclick = function(){window.location.href = "https://link.opus.guide/r/" + role_link};
   				set_data(data); /*if data is good*/
   			} else {
   				document.querySelector("#not_found_div").style.display = "inline";
