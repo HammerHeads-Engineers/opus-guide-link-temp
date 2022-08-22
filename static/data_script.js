@@ -3,6 +3,53 @@ var step_number = 0;
 var instruction_json = null;
 var url_dict = null;
 
+
+const SPANISH = {
+    "next":"siguiente",
+    "finish":"terminado"
+}
+const FRENCH = {
+    "next":"suivant",
+    "finish":"terminer"
+}
+const DUTCH = {
+    "next":"volgende",
+    "finish":"voltooid"
+}
+const GERMAN = {
+    "next":"nächste",
+    "finish":"beenden"
+}
+const SWEDISH = {
+    "next":"nästa",
+    "finish":"avsluta"
+}
+const DANISH = {
+    "next":"næste",
+    "finish":"afslutte"
+}
+
+const LATVIAN = {
+    "next":"nākamais",
+    "finish":"apdare"
+}
+const POLISH = {
+    "next":"następny",
+    "finish":"zakończyć"
+}
+
+const locale_dicts = {
+    "ES":SPANISH,
+    "NL":DUTCH,
+    "SV":SWEDISH,
+    "DA":DANISH,
+    "PL":POLISH,
+    "LT":LITHUANIAN,
+    "LV":LATVIAN,
+    "DE":GERMAN,
+    "FR":FRENCH,
+}
+
 function get_link(link_text) {
 	if (link_text.includes("http")) {
 		return link_text
@@ -170,6 +217,11 @@ function set_data(data) {
 
 	counter_text = document.querySelector("#counter_text");
 	counter_text.innerText = step_number.toString() + " / " + data["instruction"]["steps"].length.toString()
+
+	if ( Object.keys(locale_dicts).includes(instruction_json["language"]) ) {
+		document.querySelector("#next_button").innerText = locale_dicts[instruction_json["language"]]["next"]
+		document.querySelector("#finish_button").innerText = locale_dicts[instruction_json["language"]]["finish"]
+	}
 
 
 	if (instruction_json["show_steps"] == null || instruction_json["show_steps"] == true) {
