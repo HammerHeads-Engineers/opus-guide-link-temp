@@ -223,6 +223,7 @@ function set_data(data) {
 	counter_text.innerText = step_number.toString() + " / " + data["instruction"]["steps"].length.toString()
 
 	if ( Object.keys(locale_dicts).includes(instruction_json["language"]) ) {
+		document.documentElement.setAttribute("lang", instruction_json["language"]);
 		document.querySelector("#next_text").textContent = locale_dicts[instruction_json["language"]]["next"]
 		document.querySelector("#finish_text").textContent = locale_dicts[instruction_json["language"]]["finish"]
 		document.querySelector("#finish_text_other").textContent = locale_dicts[instruction_json["language"]]["finish"]
