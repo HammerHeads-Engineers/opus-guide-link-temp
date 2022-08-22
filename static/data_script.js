@@ -29,6 +29,10 @@ const DANISH = {
     "finish":"afslutte"
 }
 
+const LITHUANIAN = {
+    "next":"kitas",
+    "finish":"baigti"
+}
 const LATVIAN = {
     "next":"nākamais",
     "finish":"apdare"
