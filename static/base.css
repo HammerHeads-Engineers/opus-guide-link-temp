@@ -128,7 +128,7 @@
                 height: auto;
                 text-align: left;
                 background: white;
-                border-bottom: solid 0.5px;
+                border-bottom: solid 0.5px gray;
             }
             .header_text{
                 padding: 0;
