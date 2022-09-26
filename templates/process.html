@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="EN">
+    <head>
+        <meta charset="UTF-8">
+        <title>Process</title>
+        <meta name="viewport" content="width=device-width,initial-scale=1"> 
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@100;200;500&display=swap" rel="stylesheet">
+        <link rel="shortcut icon" href="{{ url_for('static', filename='icon.png') }}">
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='base.css') }}">
+        <style type="text/css">
+
+            #not_found_div {
+                margin-top: 20vh;
+                margin-bottom: 20vh;
+                text-align: center;
+            }
+            .instruction_item {
+                display: grid;
+                grid-template-columns: 1fr auto;
+                grid-template-areas: "instruction_item_text" "instruction_item_button";
+            }
+            .instruction_item_text {
+                grid-area: "instruction_item_text";
+
+            }
+            .instruction_item_button {
+                grid-area: "instruction_item_button";
+            }
+
+            /* main grid stuff*/
+            body {
+                display: grid;
+                grid-template-rows: auto 1fr;
+                grid-template-areas: "header""main_grid";
+            }
+
+            #header {
+                grid-area: header;
+            }
+            #main_grid {
+                margin: 0px;
+                padding: 0px;
+                grid-area: main_grid;
+                overflow: auto;
+            }
+            #content {
+                margin: auto;
+                padding: 0px;
+                max-width: 960px;
+            }
+
+            @media (max-width: 720px) {
+
+                #content {
+                    min-height: 115vh;
+                }
+            }
+        </style>
+        <!--link rel="stylesheet" href="./style.css"-->
+    </head>
+    <body>
+        <!-- partial:index.partial.html -->
+
+        <!-- header -->
+        <div id="header" class="header">
+            <!--p>Stuff</p-->
+            <h1 class="header_text"><h1>
+        </div>
+
+        <div id="main_grid">
+            <div id="content">
+
+                <div id="not_found_div" style="display: none">
+                    <h1><i class="fa fa-chain-broken "></i> Page not found<h1>
+                    <a href="https://opus.guide" class="link"><i class="fa fa-link icon_left"></i>opus.guide</a>
+
+                </div>
+
+
+                <div id="instructions_content">
+
+                    <!--a href="https://link.opus.guide">
+                        <div class="card instruction_item">
+                            <div class="instruction_item_text">
+                                <h3 class="standard_h" >Instructions this is a very long long long long long long long long long long long long long ling long ling LING</h3>
+
+                            </div>
+                            <div class="instruction_item_button">
+                                <button class="button"><i class="fa fa-arrow-right"></i></button>
+                            </div>
+                        </div>
+                    </a-->
+
+
+                </div>
+
+                <div class="spacer"></div>
+                
+            </div>
+        </div>
+        <!--script src="{{url_for('static', filename='role_script.js')}}"></script>
+        <script type="text/javascript">
+            get_role_folder("{{ link_uid }}");
+        </script-->
+    </body>
+</html>
