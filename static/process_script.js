@@ -49,7 +49,7 @@ function set_data(data) {
 
 
 
-function get_role_folder(link) {
+function get_process(link) {
 	set_data([1,2,3,4,5,6,7,8,9,10]);
 	//link_uid = link;
 	//fetch('https://app.opus.guide/_/api/get_role/' + link_uid, {credentials:"include"})
