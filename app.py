@@ -34,4 +34,4 @@ def role_instruction(role_link, instruction_uid):
 
 @app.route("/p/<link_uid>/")
 def process(link_uid):
-	render_template("")
+	render_template("process.html")
