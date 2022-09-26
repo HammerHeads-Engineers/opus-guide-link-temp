@@ -3,10 +3,10 @@ var link_uid = ""
 function create_instruction_item(item_data) {
 	text = document.createElement("h3")
 	text.className = "standard_h"
-	text.innerText = "Pavadinimas" //item_data["name"]
+	text.innerText = item_data["name"]
 
 	ahref = document.createElement("a")
-	//ahref.href = "https://link.opus.guide/r/" + link_uid +"/" + item_data["uid"]
+	ahref.href = "https://link.opus.guide/r/" + link_uid +"/" + item_data["uid"]
 	card = document.createElement("div")
 	card.className = "card instruction_item"
 
@@ -40,7 +40,11 @@ function set_data(data) {
 
 	//data["instructions"]
 	data["process"].forEach(function(item_data) {
-		elem = create_instruction_item(item_data);
+		if (item_data["type"] == "instruction") {
+			elem = create_instruction_item(item_data);
+		} else if (item_data["type"] == "question") {
+			elem = null;
+		}
 		container = document.querySelector("#instructions_content");
 		container.appendChild(elem);
 
