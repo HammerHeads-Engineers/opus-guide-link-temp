@@ -30,7 +30,7 @@ function create_instruction_item(item_data) {
 }
 function create_question_item(item_data) {
 	card = document.createElement("div");
-	card = className = "card";
+	card.className = "card";
 
 	text = document.createElement("h3");
 	text.className = "standard_h";
