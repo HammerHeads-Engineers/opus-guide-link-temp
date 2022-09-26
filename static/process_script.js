@@ -42,6 +42,14 @@ function create_question_item(item_data) {
 	card.appendChild(text);
 	card.appendChild(buttons_div);
 
+	item_data["answers"].forEach(function(answer_data){
+		button = document.createElement("button");
+		button.className = "button";
+		button.innerText = answer_data["name"];
+
+		buttons_div.appendChild(button);
+	});
+
 	return card;
 
 }
@@ -78,7 +86,7 @@ function get_process(link) {
 	 "process":[
 	 		{"name":"1", "type":"instruction", "uid":"123"},
 	 		{"name":"2", "type":"instruction", "uid":"234"},
-	 		{"name":"how?", "type":"question", "uid":"345"},
+	 		{"name":"how?", "type":"question", "uid":"345", "answers":[{"name":"Yes"},{"name":"No"}]},
 	 	]
 	};
 
