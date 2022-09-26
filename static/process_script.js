@@ -28,6 +28,24 @@ function create_instruction_item(item_data) {
 	return ahref
 
 }
+function create_question_item(item_data) {
+	card = document.createElement("div");
+	card = className = "card";
+
+	text = document.createElement("h3");
+	text.className = "standard_h";
+	text.innerText = item_data["name"];
+
+	buttons_div = document.createElement("div");
+	buttons_div.className = "no_card";
+
+	card.appendChild(text);
+	card.appendChild(buttons_div);
+
+	return card;
+
+}
+
 
 function set_data(data) {
 	console.log(data);
@@ -43,7 +61,7 @@ function set_data(data) {
 		if (item_data["type"] == "instruction") {
 			elem = create_instruction_item(item_data);
 		} else if (item_data["type"] == "question") {
-			elem = null;
+			elem = create_question_item(item_data);
 		}
 		container = document.querySelector("#instructions_content");
 		container.appendChild(elem);
@@ -59,7 +77,8 @@ function get_process(link) {
 	data = {"name":"process 123",
 	 "process":[
 	 		{"name":"1", "type":"instruction", "uid":"123"},
-	 		{"name":"2", "type":"instruction", "uid":"234"}
+	 		{"name":"2", "type":"instruction", "uid":"234"},
+	 		{"name":"how?", "type":"question", "uid":"345"},
 	 	]
 	};
 
