@@ -31,13 +31,15 @@ function create_instruction_item(item_data) {
 
 function set_data(data) {
 	console.log(data);
-	document.title = "Pavadinimas";//data["name"];
+	document.title = data["name"];
 
 	header_name = document.querySelector(".header_text");
-	header_name.innerText = "Pavadinimas 1";//data["name"];
+	header_name.innerText = data["name"];
+
+
 
 	//data["instructions"]
-	data.forEach(function(item_data) {
+	data["process"].forEach(function(item_data) {
 		elem = create_instruction_item(item_data);
 		container = document.querySelector("#instructions_content");
 		container.appendChild(elem);
@@ -50,7 +52,14 @@ function set_data(data) {
 
 
 function get_process(link) {
-	set_data([1,2,3,4,5,6,7,8,9,10]);
+	data = {"name":"process 123",
+	 "process":[
+	 		{"name":"1", "type":"instruction", "uid":"123"},
+	 		{"name":"2", "type":"instruction", "uid":"234"}
+	 	]
+	};
+
+	set_data(data);
 	//link_uid = link;
 	//fetch('https://app.opus.guide/_/api/get_role/' + link_uid, {credentials:"include"})
   	//	.then((response) =>
