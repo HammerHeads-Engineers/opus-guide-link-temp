@@ -104,7 +104,9 @@ function get_process(link) {
 	 "process":[
 	 		{"name":"1", "type":"instruction", "uid":"123"},
 	 		{"name":"2", "type":"instruction", "uid":"234"},
-	 		{"name":"how?", "type":"question", "uid":"345", "answers":[{"name":"Yes", "list":[{"name":"Very nice", "type":"instruction", "uid":"12345"}]},{"name":"No", "list":[]}]},
+	 		{"name":"how?", "type":"question", "uid":"345", "answers":[
+	 								{"name":"Yes", "list":[{"name":"Very nice", "type":"instruction", "uid":"12345"}]},
+	 								{"name":"No", "list":[{"name":"Very nice other", "type":"instruction", "uid":"123445"}]}]},
 	 	]
 	};
 
