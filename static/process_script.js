@@ -85,11 +85,14 @@ function set_data(data) {
 	data["process"].forEach(function(item_data) {
 		if (item_data["type"] == "instruction") {
 			let elem = create_instruction_item(item_data);
+			container = document.querySelector("#instructions_content");
+			container.appendChild(elem);
 		} else if (item_data["type"] == "question") {
 			let elem = create_question_item(item_data);
+			container = document.querySelector("#instructions_content");
+			container.appendChild(elem);
 		}
-		container = document.querySelector("#instructions_content");
-		container.appendChild(elem);
+
 
 	})
 
