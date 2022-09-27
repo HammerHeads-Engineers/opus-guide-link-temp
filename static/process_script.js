@@ -50,9 +50,13 @@ function create_question_item(item_data) {
 		button.className = "button";
 		button.innerText = answer_data["name"];
 
-		buttons_div.appendChild(button);
-
 		let list_div = document.createElement("div")
+
+		button.onclick = function() {list_div.style.display = "none"};
+
+		button.onclick
+
+		buttons_div.appendChild(button);
 
 		answer_data["list"].forEach(function(list_item_data) {
 			if (list_item_data["type"] == "instruction") {
