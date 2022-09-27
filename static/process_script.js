@@ -6,7 +6,7 @@ function create_instruction_item(item_data) {
 	text.innerText = item_data["name"]
 
 	let ahref = document.createElement("a")
-	ahref.href = "https://link.opus.guide/r/" + link_uid +"/" + item_data["uid"]
+	ahref.href = "https://link.opus.guide/p/" + link_uid +"/" + item_data["uid"]
 	let card = document.createElement("div")
 	card.className = "card instruction_item"
 
