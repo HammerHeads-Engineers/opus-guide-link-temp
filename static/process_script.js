@@ -57,6 +57,7 @@ function create_question_item(item_data) {
 		let list_div = document.createElement("div")
 		//list_div.style.display = "none"
 
+		//button function add list when clicked
 		button.onclick = function() {
 			buttons_div.childNodes.forEach(function(other_button){ //make other buttons white
 				other_button.className = "button"
@@ -65,8 +66,6 @@ function create_question_item(item_data) {
 			answers_div.innerHTML = ""; //clear div
 			answers_div.appendChild(list_div); // add list
 		};
-
-		button.onclick
 
 		buttons_div.appendChild(button);
 
@@ -80,7 +79,6 @@ function create_question_item(item_data) {
 			}
 
 		})
-		//overall_div.appendChild(list_div);
 	});
 
 	return overall_div;
@@ -116,28 +114,28 @@ function set_data(data) {
 
 
 function get_process(link) {
-	data = {"name":"process 123",
-	 "process":[
-	 		{"name":"1", "type":"instruction", "uid":"123"},
-	 		{"name":"2", "type":"instruction", "uid":"234"},
-	 		{"name":"how?", "type":"question", "uid":"345", "answers":[
-	 								{"name":"Yes", "list":[{"name":"Very nice", "type":"instruction", "uid":"12345"}]},
-	 								{"name":"No", "list":[{"name":"Very nice other", "type":"instruction", "uid":"123445"}]}]},
-	 	]
-	};
+	//data = {"name":"process 123",
+	// "process":[
+	// 		{"name":"1", "type":"instruction", "uid":"123"},
+	// 		{"name":"2", "type":"instruction", "uid":"234"},
+	// 		{"name":"how?", "type":"question", "uid":"345", "answers":[
+	// 								{"name":"Yes", "list":[{"name":"Very nice", "type":"instruction", "uid":"12345"}]},
+	// 								{"name":"No", "list":[{"name":"Very nice other", "type":"instruction", "uid":"123445"}]}]},
+	// 	]
+	//};
 
-	set_data(data);
-	//link_uid = link;
-	//fetch('https://app.opus.guide/_/api/get_role/' + link_uid, {credentials:"include"})
-  	//	.then((response) =>
-  	//		response.json()
-  	//	)
-  	//	.then((data) => {
-  	//		if (data) {
-  	//			set_data(data); /*if data is good*/
-  	//		} else {
-  	//			document.querySelector("#not_found_div").style.display = "inline";
-  	//		}
- 	//	});
+	//set_data(data);
+	link_uid = link;
+	fetch('https://app.opus.guide/_/api/get_process/123456' + link_uid, {credentials:"include"})
+  		.then((response) =>
+  			response.json()
+  		)
+  		.then((data) => {
+  			if (data) {
+  				set_data(data); /*if data is good*/
+  			} else {
+  				document.querySelector("#not_found_div").style.display = "inline";
+  			}
+ 		});
 
 }
