@@ -51,8 +51,9 @@ function create_question_item(item_data) {
 		button.innerText = answer_data["name"];
 
 		let list_div = document.createElement("div")
+		list_div.style.display = "none"
 
-		button.onclick = function() {list_div.style.display = "none"};
+		button.onclick = function() {list_div.style.display = "inline"};
 
 		button.onclick
 
