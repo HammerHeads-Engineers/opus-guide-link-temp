@@ -49,7 +49,7 @@ function create_question_item(item_data) {
 
 		buttons_div.appendChild(button);
 
-		//list_div = document.createElement("div")
+		let list_div = document.createElement("div")
 
 		answer_data["list"].forEach(function(list_item_data) {
 			if (list_item_data["type"] == "instruction") {
@@ -60,10 +60,10 @@ function create_question_item(item_data) {
 
 			console.log(elem)
 
-			//list_div.appendChild(elem)
+			list_div.appendChild(elem)
 
 		})
-		//card.appendChild(list_div);
+		card.appendChild(list_div);
 	});
 
 	return card;
@@ -72,7 +72,7 @@ function create_question_item(item_data) {
 
 
 function set_data(data) {
-	console.log(data);
+	//console.log(data);
 	document.title = data["name"];
 
 	header_name = document.querySelector(".header_text");
