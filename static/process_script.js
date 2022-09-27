@@ -50,10 +50,10 @@ function create_question_item(item_data) {
 		buttons_div.appendChild(button);
 
 		answer_data["list"].forEach(function(list_item_data) {
-			if (item_data["type"] == "instruction") {
-				elem = create_instruction_item(item_data);
-			} else if (item_data["type"] == "question") {
-				elem = create_question_item(item_data);
+			if (list_item_data["type"] == "instruction") {
+				elem = create_instruction_item(list_item_data);
+			} else if (list_item_data["type"] == "question") {
+				elem = create_question_item(list_item_data);
 			}
 
 			button_div.appendChild(elem)
