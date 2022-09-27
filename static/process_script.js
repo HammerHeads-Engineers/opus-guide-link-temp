@@ -58,13 +58,12 @@ function create_question_item(item_data) {
 		//list_div.style.display = "none"
 
 		button.onclick = function() {
-			button_div.querySelectorAll().forEach(function(other_button){
+			buttons_div.querySelectorAll().forEach(function(other_button){ //make other buttons white
 				other_button.className = "button"
 			})
-			button.className = "button_pressed"
-			answers_div.innerHTML = "";
-			answers_div.appendChild(list_div);
-			//list_div.style.display = "inline"
+			button.className = "button_pressed" //make button red (selected)
+			answers_div.innerHTML = ""; //clear div
+			answers_div.appendChild(list_div); // add list
 		};
 
 		button.onclick
