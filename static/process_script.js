@@ -48,6 +48,16 @@ function create_question_item(item_data) {
 		button.innerText = answer_data["name"];
 
 		buttons_div.appendChild(button);
+
+		answer_data["list"].forEach(function(list_item_data) {
+			if (item_data["type"] == "instruction") {
+				elem = create_instruction_item(item_data);
+			} else if (item_data["type"] == "question") {
+				elem = create_question_item(item_data);
+			}
+
+			button_div.appendChild(elem)
+		})
 	});
 
 	return card;
@@ -86,7 +96,7 @@ function get_process(link) {
 	 "process":[
 	 		{"name":"1", "type":"instruction", "uid":"123"},
 	 		{"name":"2", "type":"instruction", "uid":"234"},
-	 		{"name":"how?", "type":"question", "uid":"345", "answers":[{"name":"Yes"},{"name":"No"}]},
+	 		{"name":"how?", "type":"question", "uid":"345", "answers":[{"name":"Yes", "list":[{"name":"Very nice", "type":"instruction", "uid":"12345"}]},{"name":"No", "list":[]}]},
 	 	]
 	};
 
