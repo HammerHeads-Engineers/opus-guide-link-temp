@@ -58,6 +58,9 @@ function create_question_item(item_data) {
 		//list_div.style.display = "none"
 
 		button.onclick = function() {
+			button_div.querySelectorAll().forEach(function(other_button){
+				other_button.className = "button"
+			})
 			button.className = "button_pressed"
 			answers_div.innerHTML = "";
 			answers_div.appendChild(list_div);
