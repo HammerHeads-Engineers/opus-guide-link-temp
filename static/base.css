@@ -88,6 +88,11 @@
                 color: #DD4A48;
                 background-color: rgba(153,153,153,0.4);
             }
+            .button_pressed {
+                background-color: #DD4A48;
+                color: white;
+
+            }
             .icon_right {
                 margin-left: 8px;
             }

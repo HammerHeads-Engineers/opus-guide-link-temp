@@ -58,6 +58,7 @@ function create_question_item(item_data) {
 		//list_div.style.display = "none"
 
 		button.onclick = function() {
+			button.className = "button button_pressed"
 			answers_div.innerHTML = "";
 			answers_div.appendChild(list_div);
 			//list_div.style.display = "inline"
