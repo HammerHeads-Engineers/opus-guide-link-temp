@@ -58,7 +58,7 @@ function create_question_item(item_data) {
 		//list_div.style.display = "none"
 
 		button.onclick = function() {
-			buttons_div.querySelectorAll().forEach(function(other_button){ //make other buttons white
+			buttons_div.childNodes.forEach(function(other_button){ //make other buttons white
 				other_button.className = "button"
 			})
 			button.className = "button_pressed" //make button red (selected)
