@@ -41,9 +41,13 @@ function create_question_item(item_data) {
 	let buttons_div = document.createElement("div");
 	buttons_div.className = "no_card";
 
-	overall_div.appendChild(card);
+	let answers_div = document.createElement("div");
+
+
 	card.appendChild(text);
 	card.appendChild(buttons_div);
+	overall_div.appendChild(card);
+	overall_div.appendChild(answers_div);
 
 	item_data["answers"].forEach(function(answer_data){
 		let button = document.createElement("button");
@@ -51,9 +55,13 @@ function create_question_item(item_data) {
 		button.innerText = answer_data["name"];
 
 		let list_div = document.createElement("div")
-		list_div.style.display = "none"
+		//list_div.style.display = "none"
 
-		button.onclick = function() {list_div.style.display = "inline"};
+		button.onclick = function() {
+			answers_div.innerHTML = "";
+			answers_div.appendChild("list_div");
+			//list_div.style.display = "inline"
+		};
 
 		button.onclick
 
@@ -69,7 +77,7 @@ function create_question_item(item_data) {
 			}
 
 		})
-		overall_div.appendChild(list_div);
+		//overall_div.appendChild(list_div);
 	});
 
 	return overall_div;
