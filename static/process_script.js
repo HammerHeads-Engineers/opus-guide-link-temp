@@ -29,21 +29,21 @@ function create_instruction_item(item_data) {
 
 }
 function create_question_item(item_data) {
-	card = document.createElement("div");
+	let card = document.createElement("div");
 	card.className = "card";
 
-	text = document.createElement("h3");
+	let text = document.createElement("h3");
 	text.className = "standard_h";
 	text.innerText = item_data["name"];
 
-	buttons_div = document.createElement("div");
+	let buttons_div = document.createElement("div");
 	buttons_div.className = "no_card";
 
 	card.appendChild(text);
 	card.appendChild(buttons_div);
 
 	item_data["answers"].forEach(function(answer_data){
-		button = document.createElement("button");
+		let button = document.createElement("button");
 		button.className = "button";
 		button.innerText = answer_data["name"];
 
@@ -53,9 +53,9 @@ function create_question_item(item_data) {
 
 		answer_data["list"].forEach(function(list_item_data) {
 			if (list_item_data["type"] == "instruction") {
-				elem = create_instruction_item(list_item_data);
+				let elem = create_instruction_item(list_item_data);
 			} else if (list_item_data["type"] == "question") {
-				elem = create_question_item(list_item_data);
+				let elem = create_question_item(list_item_data);
 			}
 
 			console.log(elem)
