@@ -54,13 +54,11 @@ function create_question_item(item_data) {
 		answer_data["list"].forEach(function(list_item_data) {
 			if (list_item_data["type"] == "instruction") {
 				let elem = create_instruction_item(list_item_data);
+				list_div.appendChild(elem)
 			} else if (list_item_data["type"] == "question") {
 				let elem = create_question_item(list_item_data);
+				list_div.appendChild(elem)
 			}
-
-			console.log(elem)
-
-			list_div.appendChild(elem)
 
 		})
 		card.appendChild(list_div);
