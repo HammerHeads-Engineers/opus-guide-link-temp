@@ -59,7 +59,7 @@ function create_question_item(item_data) {
 
 		button.onclick = function() {
 			answers_div.innerHTML = "";
-			answers_div.appendChild("list_div");
+			answers_div.appendChild(list_div);
 			//list_div.style.display = "inline"
 		};
 
