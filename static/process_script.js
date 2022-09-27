@@ -49,6 +49,8 @@ function create_question_item(item_data) {
 
 		buttons_div.appendChild(button);
 
+		list_div = document.createElement("div")
+
 		answer_data["list"].forEach(function(list_item_data) {
 			if (list_item_data["type"] == "instruction") {
 				elem = create_instruction_item(list_item_data);
@@ -56,8 +58,10 @@ function create_question_item(item_data) {
 				elem = create_question_item(list_item_data);
 			}
 
-			button_div.appendChild(elem)
+			list_div.appendChild(elem)
+
 		})
+		card.appendChild(list_div);
 	});
 
 	return card;
