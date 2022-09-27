@@ -67,7 +67,7 @@ function create_question_item(item_data) {
 		overall_div.appendChild(list_div);
 	});
 
-	return card;
+	return overall_div;
 
 }
 
@@ -80,16 +80,14 @@ function set_data(data) {
 	header_name.innerText = data["name"];
 
 
-
+	container = document.querySelector("#instructions_content");
 	//data["instructions"]
 	data["process"].forEach(function(item_data) {
 		if (item_data["type"] == "instruction") {
 			let elem = create_instruction_item(item_data);
-			container = document.querySelector("#instructions_content");
 			container.appendChild(elem);
 		} else if (item_data["type"] == "question") {
 			let elem = create_question_item(item_data);
-			container = document.querySelector("#instructions_content");
 			container.appendChild(elem);
 		}
 
