@@ -1,21 +1,21 @@
 var link_uid = ""
 
 function create_instruction_item(item_data) {
-	text = document.createElement("h3")
+	let text = document.createElement("h3")
 	text.className = "standard_h"
 	text.innerText = item_data["name"]
 
-	ahref = document.createElement("a")
+	let ahref = document.createElement("a")
 	ahref.href = "https://link.opus.guide/r/" + link_uid +"/" + item_data["uid"]
-	card = document.createElement("div")
+	let card = document.createElement("div")
 	card.className = "card instruction_item"
 
-	text_div = document.createElement("div")
+	let text_div = document.createElement("div")
 	text_div.className = "instruction_item_text"
-	button_div = document.createElement("div")
+	let button_div = document.createElement("div")
 	button_div.className = "instruction_item_button"
 
-	button = document.createElement("button")
+	let button = document.createElement("button")
 	button.className = "button"
 	button.innerHTML = "<i class='fa fa-arrow-right'></i>"
 
@@ -29,6 +29,8 @@ function create_instruction_item(item_data) {
 
 }
 function create_question_item(item_data) {
+	let overall_div = document.createElement("div");
+
 	let card = document.createElement("div");
 	card.className = "card";
 
@@ -39,6 +41,7 @@ function create_question_item(item_data) {
 	let buttons_div = document.createElement("div");
 	buttons_div.className = "no_card";
 
+	overall_div.appendChild(card);
 	card.appendChild(text);
 	card.appendChild(buttons_div);
 
@@ -61,7 +64,7 @@ function create_question_item(item_data) {
 			}
 
 		})
-		card.appendChild(list_div);
+		overall_div.appendChild(list_div);
 	});
 
 	return card;
@@ -73,7 +76,7 @@ function set_data(data) {
 	//console.log(data);
 	document.title = data["name"];
 
-	header_name = document.querySelector(".header_text");
+	let header_name = document.querySelector(".header_text");
 	header_name.innerText = data["name"];
 
 
@@ -81,9 +84,9 @@ function set_data(data) {
 	//data["instructions"]
 	data["process"].forEach(function(item_data) {
 		if (item_data["type"] == "instruction") {
-			elem = create_instruction_item(item_data);
+			let elem = create_instruction_item(item_data);
 		} else if (item_data["type"] == "question") {
-			elem = create_question_item(item_data);
+			let elem = create_question_item(item_data);
 		}
 		container = document.querySelector("#instructions_content");
 		container.appendChild(elem);
