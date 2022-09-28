@@ -310,7 +310,7 @@ function get_instruction_by_role(role_link, instruction_uid) {
 
 }
 
-function get_instruction_by_role(process_link, instruction_uid) {
+function get_instruction_by_process(process_link, instruction_uid) {
 	fetch('https://app.opus.guide/_/api/get_instruction_by_process/'+process_link+"/"+instruction_uid, {credentials:"include"})
   		.then((response) =>
   			response.json()
