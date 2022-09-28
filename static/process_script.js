@@ -114,19 +114,8 @@ function set_data(data) {
 
 
 function get_process(link) {
-	//data = {"name":"process 123",
-	// "process":[
-	// 		{"name":"1", "type":"instruction", "uid":"123"},
-	// 		{"name":"2", "type":"instruction", "uid":"234"},
-	// 		{"name":"how?", "type":"question", "uid":"345", "answers":[
-	// 								{"name":"Yes", "list":[{"name":"Very nice", "type":"instruction", "uid":"12345"}]},
-	// 								{"name":"No", "list":[{"name":"Very nice other", "type":"instruction", "uid":"123445"}]}]},
-	// 	]
-	//};
-
-	//set_data(data);
 	link_uid = link;
-	fetch('https://app.opus.guide/_/api/get_process/123456' + link_uid, {credentials:"include"})
+	fetch('https://app.opus.guide/_/api/get_process/' + link_uid, {credentials:"include"})
   		.then((response) =>
   			response.json()
   		)
