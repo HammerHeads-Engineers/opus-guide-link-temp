@@ -309,3 +309,20 @@ function get_instruction_by_role(role_link, instruction_uid) {
  		});
 
 }
+
+function get_instruction_by_role(process_link, instruction_uid) {
+	fetch('https://app.opus.guide/_/api/get_instruction_by_process/'+process_link+"/"+instruction_uid, {credentials:"include"})
+  		.then((response) =>
+  			response.json()
+  		)
+  		.then((data) => {
+  			if (data) {
+  				document.querySelector("#finish_button").onclick = function(){window.location.href = "https://link.opus.guide/p/" + process_link};
+				document.querySelector("#finish_button_other").onclick = function(){window.location.href = "https://link.opus.guide/p/" + process_link};
+  				set_data(data); /*if data is good*/
+  			} else {
+  				document.querySelector("#not_found_div").style.display = "inline";
+  			}
+ 		});
+
+}
