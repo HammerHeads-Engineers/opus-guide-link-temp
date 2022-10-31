@@ -92,6 +92,13 @@
                 background-color: #DD4A48;
                 color: white;
             }
+            .button_primary:hover {
+                background-color: rgba(221, 74, 72,0.2);
+            }
+            .button_primary:active {
+                background-color: rgba(221, 74, 72,0.4);
+            }
+
             .button_pressed { /* copy from button */
                 background-color: #DD4A48;
                 color: white;
