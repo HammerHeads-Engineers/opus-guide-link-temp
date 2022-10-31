@@ -88,6 +88,10 @@
                 color: #DD4A48;
                 background-color: rgba(153,153,153,0.4);
             }
+            .button_primary {
+                background-color: #DD4A48;
+                color: white;
+            }
             .button_pressed { /* copy from button */
                 background-color: #DD4A48;
                 color: white;
