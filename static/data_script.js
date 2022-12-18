@@ -42,6 +42,11 @@ const POLISH = {
     "finish":"zakończyć"
 }
 
+const ARABIC = {
+    "next":"الخطوة التالية",
+    "finish":"تعليمات الإنهاء"
+}
+
 const locale_dicts = {
     "ES":SPANISH,
     "NL":DUTCH,
@@ -52,6 +57,7 @@ const locale_dicts = {
     "LV":LATVIAN,
     "DE":GERMAN,
     "FR":FRENCH,
+    "AR":ARABIC
 }
 
 function get_link(link_text) {
