@@ -38,13 +38,21 @@ function create_question_item(item_data) {
 	text.className = "standard_h";
 	text.innerText = item_data["name"];
 
+	let description;
+	if (item_data["description"]) {
+		description = document.createElement("div"); // using div to allow any type of HTML
+		description.innerHTML = item_data["description"];
+	}
+
 	let buttons_div = document.createElement("div");
 	buttons_div.className = "no_card";
 
 	let answers_div = document.createElement("div");
 
-
 	card.appendChild(text);
+	if (description) {
+		card.appendChild(description);
+	}
 	card.appendChild(buttons_div);
 	overall_div.appendChild(card);
 	overall_div.appendChild(answers_div);
@@ -55,16 +63,14 @@ function create_question_item(item_data) {
 		button.innerText = answer_data["name"];
 
 		let list_div = document.createElement("div")
-		//list_div.style.display = "none"
 
-		//button function add list when clicked
 		button.onclick = function() {
-			buttons_div.childNodes.forEach(function(other_button){ //make other buttons white
+			buttons_div.childNodes.forEach(function(other_button){
 				other_button.className = "button"
 			})
-			button.className = "button_pressed" //make button red (selected)
-			answers_div.innerHTML = ""; //clear div
-			answers_div.appendChild(list_div); // add list
+			button.className = "button_pressed"
+			answers_div.innerHTML = "";
+			answers_div.appendChild(list_div);
 		};
 
 		buttons_div.appendChild(button);
@@ -77,12 +83,10 @@ function create_question_item(item_data) {
 				let elem = create_question_item(list_item_data);
 				list_div.appendChild(elem)
 			}
-
 		})
 	});
 
 	return overall_div;
-
 }
 
 
