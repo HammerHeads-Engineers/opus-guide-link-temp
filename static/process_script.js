@@ -34,15 +34,9 @@ function create_question_item(item_data) {
 	let card = document.createElement("div");
 	card.className = "card";
 
-	let text = document.createElement("h3");
+	let text = document.createElement("div"); // using div to allow any type of HTML
 	text.className = "standard_h";
-	text.innerText = item_data["name"];
-
-	let description;
-	if (item_data["description"]) {
-		description = document.createElement("div"); // using div to allow any type of HTML
-		description.innerHTML = item_data["description"];
-	}
+	text.innerHTML = item_data["name"]; // set innerHTML, not innerText
 
 	let buttons_div = document.createElement("div");
 	buttons_div.className = "no_card";
@@ -50,9 +44,6 @@ function create_question_item(item_data) {
 	let answers_div = document.createElement("div");
 
 	card.appendChild(text);
-	if (description) {
-		card.appendChild(description);
-	}
 	card.appendChild(buttons_div);
 	overall_div.appendChild(card);
 	overall_div.appendChild(answers_div);
@@ -88,6 +79,7 @@ function create_question_item(item_data) {
 
 	return overall_div;
 }
+
 
 
 function set_data(data) {
