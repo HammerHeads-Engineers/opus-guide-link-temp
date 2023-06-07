@@ -68,43 +68,60 @@ function get_link(link_text) {
 	}
 }
 
-function create_step(step_data, url_data) {
-	text_card = document.createElement("div")
-	text_card.className = "card"
+function create_step(stepData, urlData) {
+    // Create a card container for the step
+    let textCard = document.createElement("div");
+    textCard.className = "card";
 
-	step_name = document.createElement("h2");
-	step_name.innerText = step_data["name"];
-	text_card.appendChild(step_name);
+    // Create a title for the step
+    let stepName = document.createElement("h2");
+    stepName.innerText = stepData["name"];
+    textCard.appendChild(stepName);
 
-	text_card.innerHTML += step_data["text"]
+    // Add the text for the step
+    textCard.innerHTML += stepData["text"]
 
-	link_div = document.createElement("div")
-	link_div.className = "no_card"
-	step_data["links"].forEach(function(step_link){
-		link = document.createElement("a");
-		link.href = get_link(step_link);
-		link.className = "link"
-		link.innerHTML = "<i class='fa fa-link icon_left'></i>"
-		link.innerHTML += step_link;
-		link_div.appendChild(link);
-	})
-	text_card.appendChild(link_div);
+    // Create a container for the links
+    let linksContainer = document.createElement("div");
+    linksContainer.className = "no_card";
 
-	file_div = document.createElement("div")
-	file_div.className = "no_card"
-	step_data["files"].forEach(function(step_link){
-		link = document.createElement("a");
-		link.href = url_data[step_link]["url"];
-		link.className = "link"
-		link.innerHTML = "<i class='fa fa-file icon_left'></i>"
-		link.innerHTML += url_data[step_link]["name"];
-		file_div.appendChild(link);
-	})
-	text_card.appendChild(file_div);
+    // Create each link and add to the container
+    stepData["links"].forEach(function(linkItem){
+        let linkElement = document.createElement("a");
+        linkElement.href = get_link(linkItem);
+        linkElement.className = "link";
+        linkElement.target = "_blank";
+        linkElement.innerHTML = "<i class='fa fa-link icon_left'></i>" + linkItem;
+        linksContainer.appendChild(linkElement);
+    });
 
-	return text_card
+    // Add links container to the card
+    textCard.appendChild(linksContainer);
 
+    // Create a container for the files
+    let filesContainer = document.createElement("div");
+    filesContainer.className = "no_card";
+
+    // Create each file link and add to the container
+    stepData["files"].forEach(function(fileItem){
+        let fileLinkElement = document.createElement("a");
+        let fileUrl = urlData[fileItem]["url"];
+        let fileName = urlData[fileItem]["name"];
+
+        fileLinkElement.href = fileUrl;
+        fileLinkElement.className = "link";
+        fileLinkElement.target = "_blank";
+        fileLinkElement.innerHTML = "<i class='fa fa-file icon_left'></i>" + fileName;
+
+        filesContainer.appendChild(fileLinkElement);
+    });
+
+    // Add files container to the card
+    textCard.appendChild(filesContainer);
+
+    return textCard;
 }
+
 
 function create_image_grid(step_data, url_data) {
 	image_grid = document.createElement("div");
