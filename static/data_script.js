@@ -46,6 +46,10 @@ const ARABIC = {
     "next":"الخطوة التالية",
     "finish":"تعليمات الإنهاء"
 }
+const JAPANESE = {
+	"next":"次のステップ",
+	"finish":"読了"
+}
 
 const locale_dicts = {
     "ES":SPANISH,
@@ -57,6 +61,7 @@ const locale_dicts = {
     "LV":LATVIAN,
     "DE":GERMAN,
     "FR":FRENCH,
+	"JA":JAPANESE,
     "AR":ARABIC
 }
 
