@@ -1,11 +1,11 @@
 from flask import Flask, render_template
+from flask_talisman import Talisman
 
 app = Flask(__name__)
+Talisman(app, content_security_policy=None)  # it redirects to httpS always
 
 
-#@app.route('/')
-#def hello():
-#    return render_template('index.html')
+
 
 @app.errorhandler(404)
 def page_not_found(e):
