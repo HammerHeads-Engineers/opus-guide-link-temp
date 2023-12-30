@@ -1,33 +1,41 @@
 var link_uid = ""
 
 function create_instruction_item(item_data) {
-	let text = document.createElement("h3")
-	text.className = "standard_h"
-	text.innerText = item_data["name"]
+    let text = document.createElement("h3");
+    text.className = "standard_h";
+    text.innerText = item_data["name"];
 
-	let ahref = document.createElement("a")
-	ahref.href = "https://link.opus.guide/p/" + link_uid +"/" + item_data["uid"]
-	let card = document.createElement("div")
-	card.className = "card instruction_item"
+    let card = document.createElement("div");
+    card.className = "card instruction_item";
 
-	let text_div = document.createElement("div")
-	text_div.className = "instruction_item_text"
-	let button_div = document.createElement("div")
-	button_div.className = "instruction_item_button"
+    let text_div = document.createElement("div");
+    text_div.className = "instruction_item_text";
+    text_div.appendChild(text);
+    card.appendChild(text_div);
 
-	let button = document.createElement("button")
-	button.className = "button"
-	button.innerHTML = "<i class='fa fa-arrow-right'></i>"
+    // Check if 'uid' is present and not empty
+    if (item_data["uid"] && item_data["uid"].trim() !== "") {
+        let ahref = document.createElement("a");
+        ahref.href = "https://link.opus.guide/p/" + link_uid + "/" + item_data["uid"];
 
-	text_div.appendChild(text);
-	card.appendChild(text_div);
-	button_div.appendChild(button);
-	card.appendChild(button_div);
-	ahref.appendChild(card);
+        let button_div = document.createElement("div");
+        button_div.className = "instruction_item_button";
 
-	return ahref
+        let button = document.createElement("button");
+        button.className = "button";
+        button.innerHTML = "<i class='fa fa-arrow-right'></i>";
 
+        button_div.appendChild(button);
+        card.appendChild(button_div);
+        ahref.appendChild(card);
+
+        return ahref;
+    } else {
+        // Return only the card if 'uid' is empty or absent
+        return card;
+    }
 }
+
 function create_question_item(item_data) {
 	let overall_div = document.createElement("div");
 
