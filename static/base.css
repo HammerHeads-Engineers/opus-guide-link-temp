@@ -143,6 +143,7 @@
 
             .card {
                 /*line-height: 12px;*/
+                background-color: white;
                 margin: 4px;
                 margin-top: 8px;
                 margin-bottom: 8px;
