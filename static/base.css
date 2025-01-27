@@ -2,7 +2,7 @@
                 font-family: Roboto, 'Montserrat', sans-serif;
                 font-size: 16px;
                 line-height: 1.4286;
-                background-color: #fafafa;
+                background-color: #f5f5f5;
             }
 			p {
 				margin: 0;
@@ -161,9 +161,9 @@
 
 
             .header {
-                line-height: 36px;
-                height: auto;
-                text-align: left;
+                line-height: 40px;
+                height: 66px;
+                text-align: center;
                 background: #51678C;
                 border-bottom: 0;
                 border-left: 0;
@@ -176,6 +176,7 @@
             .header_text{
                 padding: 0;
                 margin: 4px;
+                margin-top: 14px;
                 margin-bottom: -16px;
                 margin-left: 1vw;
                 margin-right: 1vw;
