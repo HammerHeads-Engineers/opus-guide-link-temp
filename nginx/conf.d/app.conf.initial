@@ -1,0 +1,21 @@
+# Initial config for obtaining SSL certificate (HTTP only)
+upstream flask_app {
+    server web:8000;
+}
+
+server {
+    listen 80;
+    server_name link.opus.guide link-test.opus.guide;
+
+    location /.well-known/acme-challenge/ {
+        root /var/www/certbot;
+    }
+
+    location / {
+        proxy_pass http://flask_app;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+}

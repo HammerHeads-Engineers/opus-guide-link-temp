@@ -1,0 +1,14 @@
+.git
+.gitignore
+.DS_Store
+__pycache__
+*.pyc
+*.pyo
+venv
+.env
+*.md
+Procfile
+nginx/
+certbot/
+docker-compose.yml
+Dockerfile
