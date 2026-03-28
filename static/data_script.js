@@ -240,6 +240,14 @@ function set_finish_url(instruction_data) {
 
 }
 
+function clear_header_logo() {
+	const header_logo = document.querySelector("#header_logo");
+	header_logo.hidden = true;
+	header_logo.onerror = null;
+	header_logo.removeAttribute("src");
+	header_logo.alt = "";
+}
+
 function set_data(data) {
 	instruction_json = data["instruction"];
 	url_dict = data["url_dict"];
@@ -249,6 +257,21 @@ function set_data(data) {
 	document.title = instruction_json["name"];
 	header_name = document.querySelector(".header_text");
 	header_name.innerText = data["instruction"]["name"];
+
+	const organization_logo_url = instruction_json["organization_logo_url"];
+	const organization_name = instruction_json["organization_name"];
+	const header_logo = document.querySelector("#header_logo");
+
+	if (organization_logo_url) {
+		header_logo.onerror = function() {
+			clear_header_logo();
+		};
+		header_logo.src = organization_logo_url;
+		header_logo.alt = organization_name || "Organization logo";
+		header_logo.hidden = false;
+	} else {
+		clear_header_logo();
+	}
 
 	counter_text = document.querySelector("#counter_text");
 	counter_text.innerText = step_number.toString() + " / " + data["instruction"]["steps"].length.toString()
