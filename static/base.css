@@ -100,19 +100,19 @@
                 background-color: rgba(153,153,153,0.4);
             }
             .button_primary {
-                background-color: var(--brand-primary);
+                background-color: var(--brand-accent);
                 color: white;
             }
             .button_primary:hover {
-                background-color: rgba(var(--brand-primary-rgb), 0.8);
+                opacity: 0.9;
             }
             .button_primary:active {
-                background-color: rgba(var(--brand-primary-rgb), 0.6);
+                opacity: 0.8;
                 color: white;
             }
 
             .button_pressed { /* copy from button */
-                background-color: var(--brand-primary);
+                background-color: var(--brand-accent);
                 color: white;
                 margin: 4px;
                 margin-right: 2px;
