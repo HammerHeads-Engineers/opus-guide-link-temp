@@ -45,17 +45,17 @@
                 padding-top: 32px;
                 padding-bottom: 32px;
                 text-align: left;
-                color: white;
+                color: var(--brand-primary);
 
                 transition: left 0.4s cubic-bezier(0.25, 1, 0.25, 1), width 0.4s cubic-bezier(0.25, 1, 0.25, 1);
                 z-index: 10;
-                background: var(--brand-primary);
-                border-right: 1px solid #e0e0e0;
+                background: var(--brand-header-background);
+                border-right: 1px solid var(--brand-header-border);
                 overflow: auto;
                 max-width: 23vw;
             }
             .sidebar_item{
-                color: white;
+                color: var(--brand-primary);
                 border-radius: 12px;
                 /*border: solid 0.5px gray;*/
                 border-right: none;
@@ -74,7 +74,7 @@
                 cursor: pointer;
             }
             .sidebar_item:active {
-                color: white;
+                color: var(--brand-primary);
                 background-color: rgba(153,153,153,0.4);
             }
 

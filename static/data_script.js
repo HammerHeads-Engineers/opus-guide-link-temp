@@ -254,8 +254,8 @@ function normalize_brand_color(color, fallback) {
 	}
 
 	const trimmed_color = color.trim();
-	if (/^#([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$/.test(trimmed_color)) {
-		return trimmed_color;
+	if (/^#[0-9a-fA-F]{6}$/.test(trimmed_color)) {
+		return trimmed_color.toUpperCase();
 	}
 
 	return fallback;
@@ -275,6 +275,20 @@ function hex_to_rgb_components(color) {
 	return red + ", " + green + ", " + blue;
 }
 
+function mix_with_white(color, white_ratio) {
+	const red = parseInt(color.slice(1, 3), 16);
+	const green = parseInt(color.slice(3, 5), 16);
+	const blue = parseInt(color.slice(5, 7), 16);
+
+	const mixed_red = Math.round(red * (1 - white_ratio) + 255 * white_ratio);
+	const mixed_green = Math.round(green * (1 - white_ratio) + 255 * white_ratio);
+	const mixed_blue = Math.round(blue * (1 - white_ratio) + 255 * white_ratio);
+
+	return "#" + [mixed_red, mixed_green, mixed_blue].map(function(channel) {
+		return channel.toString(16).padStart(2, "0");
+	}).join("").toUpperCase();
+}
+
 function apply_brand_colors(instruction_data) {
 	const primary_color = normalize_brand_color(instruction_data["organization_primary_color"], "#51678C");
 	const accent_color = normalize_brand_color(instruction_data["organization_accent_color"], "#DD4A48");
@@ -283,6 +297,8 @@ function apply_brand_colors(instruction_data) {
 	root_style.setProperty("--brand-primary", primary_color);
 	root_style.setProperty("--brand-primary-rgb", hex_to_rgb_components(primary_color));
 	root_style.setProperty("--brand-accent", accent_color);
+	root_style.setProperty("--brand-header-background", mix_with_white(primary_color, 0.92));
+	root_style.setProperty("--brand-header-border", mix_with_white(primary_color, 0.58));
 }
 
 function set_data(data) {

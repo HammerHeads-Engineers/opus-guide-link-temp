@@ -2,6 +2,8 @@
                 --brand-primary: #51678C;
                 --brand-primary-rgb: 81, 103, 140;
                 --brand-accent: #DD4A48;
+                --brand-header-background: #F6F8FA;
+                --brand-header-border: #B7C1D1;
             }
             body {
                 font-family: Roboto, 'Montserrat', sans-serif;
@@ -169,8 +171,8 @@
                 line-height: 40px;
                 height: 66px;
                 text-align: center;
-                background: var(--brand-primary);
-                border-bottom: 0;
+                background: var(--brand-header-background);
+                border-bottom: 1px solid var(--brand-header-border);
                 border-left: 0;
                 border-right: 0;
                 z-index: 20;
@@ -183,7 +185,7 @@
                 margin: 0 1vw;
                 font-size: 24px;
                 line-height: 1.2;
-                color: white;
+                color: var(--brand-primary);
                 text-align: left;
                 overflow: hidden;
                 text-overflow: ellipsis;
@@ -219,6 +221,9 @@
             }
             #header_logo[hidden] {
                 display: none;
+            }
+            #toggle-sidebar {
+                color: var(--brand-primary);
             }
             @media (max-width: 720px) {
                 .header_content {
