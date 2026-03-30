@@ -248,11 +248,50 @@ function clear_header_logo() {
 	header_logo.alt = "";
 }
 
+function normalize_brand_color(color, fallback) {
+	if (typeof color !== "string") {
+		return fallback;
+	}
+
+	const trimmed_color = color.trim();
+	if (/^#([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$/.test(trimmed_color)) {
+		return trimmed_color;
+	}
+
+	return fallback;
+}
+
+function hex_to_rgb_components(color) {
+	let normalized_color = color.slice(1);
+	if (normalized_color.length === 3) {
+		normalized_color = normalized_color.split("").map(function(char) {
+			return char + char;
+		}).join("");
+	}
+
+	const red = parseInt(normalized_color.slice(0, 2), 16);
+	const green = parseInt(normalized_color.slice(2, 4), 16);
+	const blue = parseInt(normalized_color.slice(4, 6), 16);
+	return red + ", " + green + ", " + blue;
+}
+
+function apply_brand_colors(instruction_data) {
+	const primary_color = normalize_brand_color(instruction_data["organization_primary_color"], "#51678C");
+	const accent_color = normalize_brand_color(instruction_data["organization_accent_color"], "#DD4A48");
+	const root_style = document.documentElement.style;
+
+	root_style.setProperty("--brand-primary", primary_color);
+	root_style.setProperty("--brand-primary-rgb", hex_to_rgb_components(primary_color));
+	root_style.setProperty("--brand-accent", accent_color);
+}
+
 function set_data(data) {
 	instruction_json = data["instruction"];
 	url_dict = data["url_dict"];
 
 	console.log(instruction_json);
+	apply_brand_colors(instruction_json);
+
 	/*set the name */
 	document.title = instruction_json["name"];
 	header_name = document.querySelector(".header_text");

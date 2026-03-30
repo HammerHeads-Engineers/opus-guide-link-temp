@@ -1,3 +1,8 @@
+            :root {
+                --brand-primary: #51678C;
+                --brand-primary-rgb: 81, 103, 140;
+                --brand-accent: #DD4A48;
+            }
             body {
                 font-family: Roboto, 'Montserrat', sans-serif;
                 font-size: 16px;
@@ -89,23 +94,23 @@
                 cursor: pointer;
             }
             .button:active {
-                color: #51678C;
+                color: var(--brand-primary);
                 background-color: rgba(153,153,153,0.4);
             }
             .button_primary {
-                background-color: #51678C;
+                background-color: var(--brand-primary);
                 color: white;
             }
             .button_primary:hover {
-                background-color: rgba(81, 103, 140,0.8);
+                background-color: rgba(var(--brand-primary-rgb), 0.8);
             }
             .button_primary:active {
-                background-color: rgba(81, 103, 140,0.6);
+                background-color: rgba(var(--brand-primary-rgb), 0.6);
                 color: white;
             }
 
             .button_pressed { /* copy from button */
-                background-color: #51678C;
+                background-color: var(--brand-primary);
                 color: white;
                 margin: 4px;
                 margin-right: 2px;
@@ -133,7 +138,7 @@
 
 
             .link {
-                color: #DD4A48;
+                color: var(--brand-accent);
                 padding: 4px;
 
             }
@@ -164,7 +169,7 @@
                 line-height: 40px;
                 height: 66px;
                 text-align: center;
-                background: #51678C;
+                background: var(--brand-primary);
                 border-bottom: 0;
                 border-left: 0;
                 border-right: 0;
