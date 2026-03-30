@@ -262,43 +262,30 @@ function normalize_brand_color(color, fallback) {
 }
 
 function hex_to_rgb_components(color) {
-	let normalized_color = color.slice(1);
-	if (normalized_color.length === 3) {
-		normalized_color = normalized_color.split("").map(function(char) {
-			return char + char;
-		}).join("");
-	}
-
+	const normalized_color = color.slice(1);
 	const red = parseInt(normalized_color.slice(0, 2), 16);
 	const green = parseInt(normalized_color.slice(2, 4), 16);
 	const blue = parseInt(normalized_color.slice(4, 6), 16);
 	return red + ", " + green + ", " + blue;
 }
 
-function mix_with_white(color, white_ratio) {
-	const red = parseInt(color.slice(1, 3), 16);
-	const green = parseInt(color.slice(3, 5), 16);
-	const blue = parseInt(color.slice(5, 7), 16);
-
-	const mixed_red = Math.round(red * (1 - white_ratio) + 255 * white_ratio);
-	const mixed_green = Math.round(green * (1 - white_ratio) + 255 * white_ratio);
-	const mixed_blue = Math.round(blue * (1 - white_ratio) + 255 * white_ratio);
-
-	return "#" + [mixed_red, mixed_green, mixed_blue].map(function(channel) {
-		return channel.toString(16).padStart(2, "0");
-	}).join("").toUpperCase();
-}
-
 function apply_brand_colors(instruction_data) {
-	const primary_color = normalize_brand_color(instruction_data["organization_primary_color"], "#51678C");
+	const primary_font_color = normalize_brand_color(
+		instruction_data["organization_primary_font_color"] || instruction_data["organization_primary_color"],
+		"#51678C"
+	);
+	const primary_background_color = normalize_brand_color(instruction_data["organization_primary_background_color"], "#F1F3F6");
+	const background_color = normalize_brand_color(instruction_data["organization_background_color"], "#FFFFFF");
 	const accent_color = normalize_brand_color(instruction_data["organization_accent_color"], "#DD4A48");
 	const root_style = document.documentElement.style;
 
-	root_style.setProperty("--brand-primary", primary_color);
-	root_style.setProperty("--brand-primary-rgb", hex_to_rgb_components(primary_color));
+	root_style.setProperty("--brand-primary", primary_font_color);
+	root_style.setProperty("--brand-primary-rgb", hex_to_rgb_components(primary_font_color));
+	root_style.setProperty("--brand-header-background", primary_background_color);
+	root_style.setProperty("--brand-header-border", "rgba(" + hex_to_rgb_components(primary_font_color) + ", 0.18)");
+	root_style.setProperty("--brand-page-background", background_color);
 	root_style.setProperty("--brand-accent", accent_color);
-	root_style.setProperty("--brand-header-background", mix_with_white(primary_color, 0.92));
-	root_style.setProperty("--brand-header-border", mix_with_white(primary_color, 0.58));
+	root_style.setProperty("--brand-accent-rgb", hex_to_rgb_components(accent_color));
 }
 
 function set_data(data) {

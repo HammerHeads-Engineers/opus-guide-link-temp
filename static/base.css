@@ -2,8 +2,10 @@
                 --brand-primary: #51678C;
                 --brand-primary-rgb: 81, 103, 140;
                 --brand-accent: #DD4A48;
-                --brand-header-background: #F6F8FA;
-                --brand-header-border: #B7C1D1;
+                --brand-accent-rgb: 221, 74, 72;
+                --brand-header-background: #F1F3F6;
+                --brand-header-border: rgba(81, 103, 140, 0.18);
+                --brand-page-background: #FFFFFF;
             }
             body {
                 font-family: Roboto, 'Montserrat', sans-serif;
@@ -100,20 +102,20 @@
                 background-color: rgba(153,153,153,0.4);
             }
             .button_primary {
-                background-color: var(--brand-accent);
-                color: white;
+                background-color: white;
+                color: var(--brand-accent);
             }
             .button_primary:hover {
-                opacity: 0.9;
+                background-color: rgba(var(--brand-accent-rgb), 0.12);
             }
             .button_primary:active {
-                opacity: 0.8;
-                color: white;
+                background-color: rgba(var(--brand-accent-rgb), 0.18);
+                color: var(--brand-accent);
             }
 
             .button_pressed { /* copy from button */
-                background-color: var(--brand-accent);
-                color: white;
+                background-color: rgba(var(--brand-accent-rgb), 0.18);
+                color: var(--brand-accent);
                 margin: 4px;
                 margin-right: 2px;
                 margin-left: 2px;
