@@ -3,6 +3,15 @@ var step_number = 0;
 var instruction_json = null;
 var url_dict = null;
 
+const PERSONAL_SPACE_FALLBACK = {
+	primary_font_color: "#2D3748",
+	primary_background_color: "#DDF3F9",
+	background_color: "#F8FBFF",
+	accent_color: "#0096B8",
+	logo_url: "/static/og_favicon_monochrome.png",
+	logo_alt: "Opus.Guide"
+};
+
 
 const SPANISH = {
     "next":"siguiente",
@@ -270,13 +279,31 @@ function hex_to_rgb_components(color) {
 }
 
 function apply_brand_colors(instruction_data) {
+	const is_personal_space_instruction = !instruction_data["organization_name"];
 	const primary_font_color = normalize_brand_color(
-		instruction_data["organization_primary_font_color"] || instruction_data["organization_primary_color"],
-		"#51678C"
+		is_personal_space_instruction
+			? PERSONAL_SPACE_FALLBACK.primary_font_color
+			: instruction_data["organization_primary_font_color"] || instruction_data["organization_primary_color"],
+		PERSONAL_SPACE_FALLBACK.primary_font_color
 	);
-	const primary_background_color = normalize_brand_color(instruction_data["organization_primary_background_color"], "#F1F3F6");
-	const background_color = normalize_brand_color(instruction_data["organization_background_color"], "#FFFFFF");
-	const accent_color = normalize_brand_color(instruction_data["organization_accent_color"], "#DD4A48");
+	const primary_background_color = normalize_brand_color(
+		is_personal_space_instruction
+			? PERSONAL_SPACE_FALLBACK.primary_background_color
+			: instruction_data["organization_primary_background_color"],
+		PERSONAL_SPACE_FALLBACK.primary_background_color
+	);
+	const background_color = normalize_brand_color(
+		is_personal_space_instruction
+			? PERSONAL_SPACE_FALLBACK.background_color
+			: instruction_data["organization_background_color"],
+		PERSONAL_SPACE_FALLBACK.background_color
+	);
+	const accent_color = normalize_brand_color(
+		is_personal_space_instruction
+			? PERSONAL_SPACE_FALLBACK.accent_color
+			: instruction_data["organization_accent_color"],
+		PERSONAL_SPACE_FALLBACK.accent_color
+	);
 	const root_style = document.documentElement.style;
 
 	root_style.setProperty("--brand-primary", primary_font_color);
@@ -303,8 +330,16 @@ function set_data(data) {
 	const organization_logo_url = instruction_json["organization_logo_url"];
 	const organization_name = instruction_json["organization_name"];
 	const header_logo = document.querySelector("#header_logo");
+	const is_personal_space_instruction = !organization_name;
 
-	if (organization_logo_url) {
+	if (is_personal_space_instruction) {
+		header_logo.onerror = function() {
+			clear_header_logo();
+		};
+		header_logo.src = PERSONAL_SPACE_FALLBACK.logo_url;
+		header_logo.alt = PERSONAL_SPACE_FALLBACK.logo_alt;
+		header_logo.hidden = false;
+	} else if (organization_logo_url) {
 		header_logo.onerror = function() {
 			clear_header_logo();
 		};

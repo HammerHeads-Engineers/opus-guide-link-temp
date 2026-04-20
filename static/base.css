@@ -1,11 +1,11 @@
             :root {
-                --brand-primary: #51678C;
-                --brand-primary-rgb: 81, 103, 140;
-                --brand-accent: #DD4A48;
-                --brand-accent-rgb: 221, 74, 72;
-                --brand-header-background: #F1F3F6;
-                --brand-header-border: rgba(81, 103, 140, 0.18);
-                --brand-page-background: #FFFFFF;
+                --brand-primary: #2D3748;
+                --brand-primary-rgb: 45, 55, 72;
+                --brand-accent: #0096B8;
+                --brand-accent-rgb: 0, 150, 184;
+                --brand-header-background: #DDF3F9;
+                --brand-header-border: rgba(45, 55, 72, 0.18);
+                --brand-page-background: #F8FBFF;
             }
             body {
                 font-family: Roboto, 'Montserrat', sans-serif;
