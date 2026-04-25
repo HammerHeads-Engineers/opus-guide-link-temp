@@ -4,9 +4,9 @@ var instruction_json = null;
 var url_dict = null;
 
 const PERSONAL_SPACE_FALLBACK = {
-	primary_font_color: "#2D3748",
-	primary_background_color: "#DDF3F9",
-	background_color: "#F8FBFF",
+	primary_font_color: "#FFFFFF",
+	primary_background_color: "#14A8CC",
+	background_color: "#DDF3F9",
 	accent_color: "#0096B8",
 	logo_url: "/static/og_favicon_monochrome.png",
 	logo_alt: "Opus.Guide"
@@ -309,8 +309,8 @@ function apply_brand_colors(instruction_data) {
 	root_style.setProperty("--brand-primary", primary_font_color);
 	root_style.setProperty("--brand-primary-rgb", hex_to_rgb_components(primary_font_color));
 	root_style.setProperty("--brand-header-background", primary_background_color);
-	root_style.setProperty("--brand-header-border", "rgba(" + hex_to_rgb_components(primary_font_color) + ", 0.18)");
-	root_style.setProperty("--brand-page-background", background_color);
+	root_style.setProperty("--brand-header-border", "rgba(" + hex_to_rgb_components(primary_background_color) + ", 0.36)");
+	root_style.setProperty("--brand-card-background", background_color);
 	root_style.setProperty("--brand-accent", accent_color);
 	root_style.setProperty("--brand-accent-rgb", hex_to_rgb_components(accent_color));
 }

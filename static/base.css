@@ -1,11 +1,12 @@
             :root {
-                --brand-primary: #2D3748;
-                --brand-primary-rgb: 45, 55, 72;
+                --brand-primary: #FFFFFF;
+                --brand-primary-rgb: 255, 255, 255;
                 --brand-accent: #0096B8;
                 --brand-accent-rgb: 0, 150, 184;
-                --brand-header-background: #DDF3F9;
-                --brand-header-border: rgba(45, 55, 72, 0.18);
-                --brand-page-background: #F8FBFF;
+                --brand-header-background: #14A8CC;
+                --brand-header-border: rgba(20, 168, 204, 0.36);
+                --brand-card-background: #DDF3F9;
+                --brand-app-background: #F5F7FA;
             }
             body {
                 font-family: Roboto, 'Montserrat', sans-serif;
@@ -152,7 +153,7 @@
 
             .card {
                 /*line-height: 12px;*/
-                background-color: white;
+                background-color: var(--brand-card-background);
                 margin: 4px;
                 margin-top: 8px;
                 margin-bottom: 8px;
