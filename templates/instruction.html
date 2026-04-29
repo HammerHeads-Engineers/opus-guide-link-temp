@@ -203,7 +203,15 @@
                         <button id="next_button" class="button button_primary" style="display: none"><span id="next_text">Next</span><i class="fa fa-arrow-right icon_right"></i></button>
                         <button id="finish_button" class="button" style="display: none"><i class="fa fa-check icon_left"></i><span id="finish_text">Finish</span></button>
                     </div>
-                    
+
+                </div>
+
+                <div id="checklist_panel" class="checklist_panel" style="display: none">
+                    <div id="checklist_banner" class="checklist_banner" style="display: none"></div>
+                    <div id="checklist_actions" class="checklist_actions">
+                        <button id="submit_checklist_button" class="button button_primary" type="button"><i class="fa fa-check icon_left"></i><span>Submit checklist</span></button>
+                        <span id="checklist_save_status" class="checklist_save_status"></span>
+                    </div>
                 </div>
 
                 <div id="step_content">
@@ -218,7 +226,9 @@
         <script src="{{url_for('static', filename='script.js')}}"></script>
         <script type="text/javascript">
 
-            {% if link_uid is defined %}
+            {% if checklist_token is defined %}
+                get_checklist("{{ checklist_token }}");
+            {% elif link_uid is defined %}
                 get_instruction("{{ link_uid }}");    
             {% elif role_link is defined %}
                 get_instruction_by_role("{{ role_link }}", "{{ instruction_uid }}")

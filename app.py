@@ -14,6 +14,10 @@ def page_not_found(e):
 
 #links
 
+@app.route('/checklist/<token>/')
+def checklist(token):
+    return render_template('instruction.html', checklist_token=token)
+
 @app.route('/<link_uid>/')
 def show_instruction(link_uid):
     return render_template('instruction.html', link_uid=link_uid)

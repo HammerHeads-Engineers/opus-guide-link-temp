@@ -3,6 +3,16 @@ var step_number = 0;
 var instruction_json = null;
 var url_dict = null;
 
+const OPUS_GUIDE_API_BASE = "https://test-opusguide.anvil.app/_/api";
+
+var checklist_mode = false;
+var checklist_token = null;
+var checklist_assignment = null;
+var checklist_progress = {};
+var checklist_readonly = false;
+var checklist_save_timeout = null;
+var checklist_pending_progress = {};
+
 const PERSONAL_SPACE_FALLBACK = {
 	primary_font_color: "#FFFFFF",
 	primary_background_color: "#14A8CC",
@@ -82,7 +92,264 @@ function get_link(link_text) {
 	}
 }
 
-function create_step(stepData, urlData) {
+function is_checklist_readonly_status(status_code) {
+	return status_code == "submitted" || status_code == "expired";
+}
+
+function get_step_id(step_data, step_index) {
+	if (step_data && step_data["id"] !== undefined && step_data["id"] !== null) {
+		return step_data["id"].toString();
+	}
+	if (step_index !== undefined && step_index !== null) {
+		return step_index.toString();
+	}
+	return "";
+}
+
+function get_step_progress(step_id) {
+	if (!checklist_progress[step_id]) {
+		checklist_progress[step_id] = {"checked": false};
+	}
+	return checklist_progress[step_id];
+}
+
+function set_checklist_save_status(status_text) {
+	const save_status = document.querySelector("#checklist_save_status");
+	if (save_status) {
+		save_status.innerText = status_text || "";
+	}
+}
+
+function show_checklist_banner(message, is_error) {
+	const banner = document.querySelector("#checklist_banner");
+	if (!banner) {
+		return;
+	}
+	banner.innerText = message;
+	banner.classList.toggle("checklist_banner_error", Boolean(is_error));
+	banner.style.display = "block";
+}
+
+function hide_checklist_banner() {
+	const banner = document.querySelector("#checklist_banner");
+	if (banner) {
+		banner.style.display = "none";
+	}
+}
+
+function format_checklist_date(value) {
+	if (!value) {
+		return "";
+	}
+
+	const date = new Date(value);
+	if (Number.isNaN(date.getTime())) {
+		return value;
+	}
+
+	return date.toLocaleString(undefined, {
+		year: "numeric",
+		month: "short",
+		day: "numeric",
+		hour: "2-digit",
+		minute: "2-digit"
+	});
+}
+
+function set_checklist_assignment(assignment) {
+	checklist_assignment = assignment || {};
+	checklist_progress = Object.assign({}, checklist_assignment["progress"] || {});
+	checklist_readonly = is_checklist_readonly_status(checklist_assignment["status_code"]);
+
+	Object.entries(checklist_pending_progress).forEach(function(progress_item) {
+		checklist_progress[progress_item[0]] = progress_item[1];
+	});
+}
+
+function update_checklist_ui_state() {
+	if (!checklist_mode) {
+		return;
+	}
+
+	const panel = document.querySelector("#checklist_panel");
+	if (panel) {
+		panel.style.display = "block";
+	}
+
+	const submit_button = document.querySelector("#submit_checklist_button");
+	if (submit_button) {
+		submit_button.onclick = submit_checklist;
+		submit_button.disabled = checklist_readonly;
+		submit_button.style.display = checklist_readonly ? "none" : "inline-block";
+	}
+
+	document.querySelectorAll(".checklist_checkbox").forEach(function(checkbox) {
+		checkbox.disabled = checklist_readonly;
+	});
+
+	if (checklist_assignment && checklist_assignment["status_code"] == "expired") {
+		show_checklist_banner("Link expired — contact sender", true);
+	} else if (checklist_assignment && checklist_assignment["status_code"] == "submitted") {
+		const submitted_at = format_checklist_date(checklist_assignment["submitted_at"]);
+		show_checklist_banner(submitted_at ? "Submitted on " + submitted_at : "Submitted", false);
+	} else {
+		hide_checklist_banner();
+	}
+}
+
+function create_checklist_checkbox(step_data, step_index) {
+	const step_id = get_step_id(step_data, step_index);
+	const step_progress = get_step_progress(step_id);
+	const checkbox = document.createElement("input");
+
+	checkbox.type = "checkbox";
+	checkbox.className = "checklist_checkbox";
+	checkbox.checked = Boolean(step_progress["checked"]);
+	checkbox.disabled = checklist_readonly;
+	checkbox.setAttribute("aria-label", "Mark step complete");
+	checkbox.onchange = function() {
+		handle_checklist_checkbox_change(step_id, checkbox.checked);
+	};
+
+	return checkbox;
+}
+
+function handle_checklist_checkbox_change(step_id, checked) {
+	if (checklist_readonly) {
+		return;
+	}
+
+	checklist_progress[step_id] = Object.assign({}, checklist_progress[step_id] || {}, {"checked": checked});
+	checklist_pending_progress[step_id] = {"checked": checked};
+	set_checklist_save_status("Saving...");
+
+	if (checklist_save_timeout) {
+		clearTimeout(checklist_save_timeout);
+	}
+
+	checklist_save_timeout = setTimeout(save_checklist_progress, 400);
+}
+
+function parse_json_response(response) {
+	return response.text().then(function(response_text) {
+		if (!response_text) {
+			return null;
+		}
+		try {
+			return JSON.parse(response_text);
+		} catch (error) {
+			return null;
+		}
+	});
+}
+
+function save_checklist_progress(should_throw) {
+	if (!checklist_token || checklist_readonly || Object.keys(checklist_pending_progress).length == 0) {
+		return Promise.resolve();
+	}
+
+	const progress_to_save = Object.assign({}, checklist_pending_progress);
+	checklist_pending_progress = {};
+	set_checklist_save_status("Saving...");
+
+	return fetch(OPUS_GUIDE_API_BASE + "/save_checklist_progress/" + checklist_token, {
+		method: "POST",
+		credentials: "include",
+		headers: {"Content-Type": "application/json"},
+		body: JSON.stringify({"progress": progress_to_save})
+	})
+	.then(function(response) {
+		if (!response.ok) {
+			throw new Error("Checklist progress could not be saved");
+		}
+		return parse_json_response(response);
+	})
+	.then(function(data) {
+		if (data && data["assignment"]) {
+			set_checklist_assignment(data["assignment"]);
+			update_checklist_ui_state();
+		}
+		set_checklist_save_status("Saved");
+	})
+	.catch(function(error) {
+		console.error(error);
+		checklist_pending_progress = Object.assign({}, progress_to_save, checklist_pending_progress);
+		set_checklist_save_status("Unable to save");
+		if (should_throw) {
+			throw error;
+		}
+	});
+}
+
+function submit_checklist() {
+	if (!checklist_token || checklist_readonly) {
+		return;
+	}
+
+	const submit_button = document.querySelector("#submit_checklist_button");
+	if (submit_button) {
+		submit_button.disabled = true;
+	}
+	const save_before_submit = Object.keys(checklist_pending_progress).length > 0
+		? save_checklist_progress(true)
+		: Promise.resolve();
+
+	save_before_submit.then(function() {
+		set_checklist_save_status("Submitting...");
+		return fetch(OPUS_GUIDE_API_BASE + "/submit_checklist/" + checklist_token, {
+			method: "POST",
+			credentials: "include",
+			headers: {"Content-Type": "application/json"},
+			body: JSON.stringify({})
+		});
+	})
+	.then(function(response) {
+		if (!response.ok) {
+			throw new Error("Checklist could not be submitted");
+		}
+		return parse_json_response(response);
+	})
+	.then(function(data) {
+		if (data && data["assignment"]) {
+			set_checklist_assignment(data["assignment"]);
+		} else {
+			checklist_assignment = Object.assign({}, checklist_assignment || {}, {
+				"status_code": "submitted",
+				"submitted_at": new Date().toISOString()
+			});
+			checklist_readonly = true;
+		}
+		update_checklist_ui_state();
+		set_checklist_save_status("");
+	})
+	.catch(function(error) {
+		console.error(error);
+		if (submit_button) {
+			submit_button.disabled = false;
+		}
+		set_checklist_save_status("Unable to submit");
+	});
+}
+
+function show_checklist_not_found(message) {
+	const panel = document.querySelector("#checklist_panel");
+	if (panel) {
+		panel.style.display = "none";
+	}
+
+	const not_found_div = document.querySelector("#not_found_div");
+	if (!not_found_div) {
+		return;
+	}
+
+	not_found_div.innerHTML = "";
+	const heading = document.createElement("h1");
+	heading.innerText = message || "Page not found";
+	not_found_div.appendChild(heading);
+	not_found_div.style.display = "inline";
+}
+
+function create_step(stepData, urlData, stepIndex) {
     // Create a card container for the step
     let textCard = document.createElement("div");
     textCard.className = "card";
@@ -90,10 +357,20 @@ function create_step(stepData, urlData) {
     // Create a title for the step
     let stepName = document.createElement("h2");
     stepName.innerText = stepData["name"];
-    textCard.appendChild(stepName);
+	if (checklist_mode) {
+		let stepHeader = document.createElement("div");
+		stepHeader.className = "checklist_step_header";
+		stepHeader.appendChild(create_checklist_checkbox(stepData, stepIndex));
+		stepHeader.appendChild(stepName);
+		textCard.appendChild(stepHeader);
+	} else {
+		textCard.appendChild(stepName);
+	}
 
-    // Add the text for the step
-    textCard.innerHTML += stepData["text"]
+	// Add the text for the step
+	let stepText = document.createElement("div");
+	stepText.innerHTML = stepData["text"] || "";
+	textCard.appendChild(stepText);
 
     // Create a container for the links
     let linksContainer = document.createElement("div");
@@ -158,8 +435,8 @@ function create_image_grid(step_data, url_data) {
 
 }
 
-function create_step_component(step_data, url_data) {
-	card = create_step(step_data, url_data);
+function create_step_component(step_data, url_data, step_index) {
+	card = create_step(step_data, url_data, step_index);
 	images = create_image_grid(step_data, url_data);
 
 	elem = document.createElement("div");
@@ -196,7 +473,8 @@ function show_next_previous_buttons() {
 		document.querySelector("#previous_button").style.display = "inline"
 	}
 
-	if (step_number == instruction_json["steps"].length) {
+	document.querySelector("#finish_button").style.display = "none"
+	if (!checklist_mode && step_number == instruction_json["steps"].length) {
 		document.querySelector("#finish_button").style.display = "inline"
 	}
 }
@@ -204,7 +482,7 @@ function show_next_previous_buttons() {
 function show_step() {
 	main_content = document.querySelector("#step_content");
 	main_content.innerHTML = ""
-	main_content.appendChild(create_step_component(instruction_json["steps"][step_number - 1], url_dict))
+	main_content.appendChild(create_step_component(instruction_json["steps"][step_number - 1], url_dict, step_number - 1))
 
 }
 function show_any_step(new_step_number) {
@@ -317,7 +595,7 @@ function apply_brand_colors(instruction_data) {
 
 function set_data(data) {
 	instruction_json = data["instruction"];
-	url_dict = data["url_dict"];
+	url_dict = data["url_dict"] || {};
 
 	console.log(instruction_json);
 	apply_brand_colors(instruction_json);
@@ -377,7 +655,7 @@ function set_data(data) {
 	} else {
 		main_content = document.querySelector("#step_content");
 		instruction_json["steps"].forEach(function(step_item, index) {
-			step_comp = create_step_component(step_item, url_dict);
+			step_comp = create_step_component(step_item, url_dict, index);
 			step_comp.id = "step_" + index.toString();
 			console.log("#" + step_comp.id);
 			main_content.appendChild(step_comp);
@@ -390,7 +668,9 @@ function set_data(data) {
 			document.querySelector("#sidebar").appendChild(side_link);
 
 		})
-		document.querySelector("#finish_button_other").style.display = "block"
+		if (!checklist_mode) {
+			document.querySelector("#finish_button_other").style.display = "block"
+		}
 
 	}
 
@@ -403,6 +683,33 @@ function set_data(data) {
 
 
 
+	}
+
+function get_checklist(token) {
+	checklist_mode = true;
+	checklist_token = token;
+	set_checklist_save_status("");
+
+	fetch(OPUS_GUIDE_API_BASE + "/get_checklist/" + token, {credentials:"include"})
+		.then(function(response) {
+			if (!response.ok) {
+				throw new Error("Checklist could not be loaded");
+			}
+			return parse_json_response(response);
+		})
+		.then(function(data) {
+			if (data && data["assignment"] && data["instruction"]) {
+				set_checklist_assignment(data["assignment"]);
+				set_data(data);
+				update_checklist_ui_state();
+			} else {
+				show_checklist_not_found("Page not found");
+			}
+		})
+		.catch(function(error) {
+			console.error(error);
+			show_checklist_not_found("Page not found");
+		});
 }
 
 function get_instruction(link_uid) {

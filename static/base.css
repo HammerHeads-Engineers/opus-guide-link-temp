@@ -102,6 +102,10 @@
                 color: var(--brand-primary);
                 background-color: rgba(153,153,153,0.4);
             }
+            .button:disabled {
+                cursor: not-allowed;
+                opacity: 0.6;
+            }
             .button_primary {
                 background-color: white;
                 color: var(--brand-accent);
@@ -167,6 +171,54 @@
                 margin: 4px;
                 margin-top: 0px;
                 margin-bottom: 8px;
+            }
+            .checklist_panel {
+                margin: 4px;
+                margin-bottom: 12px;
+            }
+            .checklist_banner {
+                background-color: rgba(var(--brand-accent-rgb), 0.12);
+                border-left: 4px solid var(--brand-accent);
+                color: #2D3748;
+                font-size: 14px;
+                font-weight: 500;
+                margin-bottom: 8px;
+                padding: 10px 12px;
+            }
+            .checklist_banner_error {
+                background-color: #FFF4F4;
+                border-left-color: #C53030;
+                color: #742A2A;
+            }
+            .checklist_actions {
+                align-items: center;
+                display: flex;
+                flex-wrap: wrap;
+                gap: 8px;
+            }
+            .checklist_save_status {
+                color: #4A5568;
+                font-size: 13px;
+                min-width: 72px;
+            }
+            .checklist_step_header {
+                align-items: center;
+                display: flex;
+                gap: 12px;
+            }
+            .checklist_step_header h2 {
+                margin-bottom: 0.5rem;
+                margin-top: 0;
+            }
+            .checklist_checkbox {
+                accent-color: var(--brand-accent);
+                flex: 0 0 auto;
+                height: 22px;
+                width: 22px;
+            }
+            .checklist_checkbox:disabled {
+                cursor: not-allowed;
+                opacity: 0.65;
             }
 
 
