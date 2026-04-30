@@ -166,6 +166,17 @@ function set_checklist_assignment(assignment) {
 	});
 }
 
+function are_all_checklist_steps_checked() {
+	if (!instruction_json || !instruction_json["steps"] || instruction_json["steps"].length == 0) {
+		return false;
+	}
+
+	return instruction_json["steps"].every(function(step_item, index) {
+		const step_id = get_step_id(step_item, index);
+		return Boolean(get_step_progress(step_id)["checked"]);
+	});
+}
+
 function update_checklist_ui_state() {
 	if (!checklist_mode) {
 		return;
@@ -178,8 +189,9 @@ function update_checklist_ui_state() {
 
 	const submit_button = document.querySelector("#submit_checklist_button");
 	if (submit_button) {
+		const can_submit = !checklist_readonly && are_all_checklist_steps_checked();
 		submit_button.onclick = submit_checklist;
-		submit_button.disabled = checklist_readonly;
+		submit_button.disabled = !can_submit;
 		submit_button.style.display = checklist_readonly ? "none" : "inline-block";
 	}
 
@@ -222,6 +234,7 @@ function handle_checklist_checkbox_change(step_id, checked) {
 	checklist_progress[step_id] = Object.assign({}, checklist_progress[step_id] || {}, {"checked": checked});
 	checklist_pending_progress[step_id] = {"checked": checked};
 	set_checklist_save_status("Saving...");
+	update_checklist_ui_state();
 
 	if (checklist_save_timeout) {
 		clearTimeout(checklist_save_timeout);
@@ -282,7 +295,8 @@ function save_checklist_progress(should_throw) {
 }
 
 function submit_checklist() {
-	if (!checklist_token || checklist_readonly) {
+	if (!checklist_token || checklist_readonly || !are_all_checklist_steps_checked()) {
+		update_checklist_ui_state();
 		return;
 	}
 
@@ -324,9 +338,7 @@ function submit_checklist() {
 	})
 	.catch(function(error) {
 		console.error(error);
-		if (submit_button) {
-			submit_button.disabled = false;
-		}
+		update_checklist_ui_state();
 		set_checklist_save_status("Unable to submit");
 	});
 }
