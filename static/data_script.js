@@ -467,28 +467,37 @@ function create_sidebar_component(step_data) {
 
 }
 
+function set_element_display(selector, display_value) {
+	const element = document.querySelector(selector);
+	if (element) {
+		element.style.display = display_value;
+	}
+}
+
+function set_element_text(selector, text_value) {
+	const element = document.querySelector(selector);
+	if (element) {
+		element.textContent = text_value;
+	}
+}
+
 function set_counter() {
-	counter_text = document.querySelector("#counter_text");
-	counter_text.innerText = step_number.toString() + " / " + instruction_json["steps"].length.toString()
+	const counter_value = step_number.toString() + " / " + instruction_json["steps"].length.toString();
+	set_element_text("#counter_text", counter_value);
+	set_element_text("#counter_text_bottom", counter_value);
 
 }
 function show_next_previous_buttons() {
-	if (instruction_json["steps"].length == step_number) {
-		document.querySelector("#next_button").style.display = "none"
-	} else {
-		document.querySelector("#next_button").style.display = "inline"
-	}
+	const next_display = instruction_json["steps"].length == step_number ? "none" : "inline";
+	const previous_display = step_number == 1 ? "none" : "inline";
+	const finish_display = !checklist_mode && step_number == instruction_json["steps"].length ? "inline" : "none";
 
-	if (step_number == 1) {
-		document.querySelector("#previous_button").style.display = "none"
-	} else {
-		document.querySelector("#previous_button").style.display = "inline"
-	}
-
-	document.querySelector("#finish_button").style.display = "none"
-	if (!checklist_mode && step_number == instruction_json["steps"].length) {
-		document.querySelector("#finish_button").style.display = "inline"
-	}
+	set_element_display("#next_button", next_display);
+	set_element_display("#next_button_bottom", next_display);
+	set_element_display("#previous_button", previous_display);
+	set_element_display("#previous_button_bottom", previous_display);
+	set_element_display("#finish_button", finish_display);
+	set_element_display("#finish_button_bottom", finish_display);
 }
 
 function show_step() {
@@ -526,14 +535,18 @@ function previous_step() {
 function bind_buttons() {
 	document.querySelector("#next_button").onclick = next_step
 	document.querySelector("#previous_button").onclick = previous_step
+	document.querySelector("#next_button_bottom").onclick = next_step
+	document.querySelector("#previous_button_bottom").onclick = previous_step
 }
 
 function set_finish_url(instruction_data) {
 	if (instruction_data["redirect_url"]) {
 		document.querySelector("#finish_button").onclick = function(){window.location.href = get_link(instruction_data["redirect_url"])};
+		document.querySelector("#finish_button_bottom").onclick = function(){window.location.href = get_link(instruction_data["redirect_url"])};
 		document.querySelector("#finish_button_other").onclick = function(){window.location.href = get_link(instruction_data["redirect_url"])};
 	} else {
 		document.querySelector("#finish_button").onclick = function(){window.location.href = "https://opus.guide"};
+		document.querySelector("#finish_button_bottom").onclick = function(){window.location.href = "https://opus.guide"};
 		document.querySelector("#finish_button_other").onclick = function(){window.location.href = "https://opus.guide"};
 	}
 
@@ -640,13 +653,14 @@ function set_data(data) {
 		clear_header_logo();
 	}
 
-	counter_text = document.querySelector("#counter_text");
-	counter_text.innerText = step_number.toString() + " / " + data["instruction"]["steps"].length.toString()
+	set_counter();
 
 	if ( Object.keys(locale_dicts).includes(instruction_json["language"]) ) {
 		document.documentElement.setAttribute("lang", instruction_json["language"]);
 		document.querySelector("#next_text").textContent = locale_dicts[instruction_json["language"]]["next"]
+		document.querySelector("#next_text_bottom").textContent = locale_dicts[instruction_json["language"]]["next"]
 		document.querySelector("#finish_text").textContent = locale_dicts[instruction_json["language"]]["finish"]
+		document.querySelector("#finish_text_bottom").textContent = locale_dicts[instruction_json["language"]]["finish"]
 		document.querySelector("#finish_text_other").textContent = locale_dicts[instruction_json["language"]]["finish"]
 	}
 
@@ -662,6 +676,7 @@ function set_data(data) {
 			document.querySelector("#sidebar").appendChild(side_link)
 		})
 		document.querySelector("#steps_control_div").style.display = "grid"
+		document.querySelector("#steps_control_div_bottom").style.display = "grid"
 		next_step();
 		bind_buttons();
 	} else {
@@ -748,7 +763,8 @@ function get_instruction_by_role(role_link, instruction_uid) {
   		.then((data) => {
   			if (data) {
   				document.querySelector("#finish_button").onclick = function(){window.location.href = "https://link.opus.guide/r/" + role_link};
-				document.querySelector("#finish_button_other").onclick = function(){window.location.href = "https://link.opus.guide/r/" + role_link};
+					document.querySelector("#finish_button_bottom").onclick = function(){window.location.href = "https://link.opus.guide/r/" + role_link};
+					document.querySelector("#finish_button_other").onclick = function(){window.location.href = "https://link.opus.guide/r/" + role_link};
   				set_data(data); /*if data is good*/
   			} else {
   				document.querySelector("#not_found_div").style.display = "inline";
@@ -765,7 +781,8 @@ function get_instruction_by_process(process_link, instruction_uid) {
   		.then((data) => {
   			if (data) {
   				document.querySelector("#finish_button").onclick = function(){window.location.href = "https://link.opus.guide/p/" + process_link};
-				document.querySelector("#finish_button_other").onclick = function(){window.location.href = "https://link.opus.guide/p/" + process_link};
+					document.querySelector("#finish_button_bottom").onclick = function(){window.location.href = "https://link.opus.guide/p/" + process_link};
+					document.querySelector("#finish_button_other").onclick = function(){window.location.href = "https://link.opus.guide/p/" + process_link};
   				set_data(data); /*if data is good*/
   			} else {
   				document.querySelector("#not_found_div").style.display = "inline";

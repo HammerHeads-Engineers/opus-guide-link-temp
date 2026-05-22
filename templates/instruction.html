@@ -78,16 +78,19 @@
                 background-color: rgba(255,255,255,.18);
             }
 
-            #steps_control_div {
+            #steps_control_div,
+            #steps_control_div_bottom {
                 line-height: 12px;
                 display: grid;
                 grid-template-columns: auto 1fr;
                 grid-template-areas: "counter control_buttons";
             }
-            #counter {
+            #counter,
+            #counter_bottom {
                 grid-area: counter;
             }
-            #control_buttons {
+            #control_buttons,
+            #control_buttons_bottom {
                 text-align: right;
                 grid-area: control_buttons
             }
@@ -216,6 +219,16 @@
 
                 <div id="step_content">
                     
+                </div>
+                <div id="steps_control_div_bottom" class="no_card" style="display: none">
+                    <div id="counter_bottom">
+                        <h3 id="counter_text_bottom"></h3>
+                    </div>
+                    <div id="control_buttons_bottom">
+                        <button id="previous_button_bottom" class="button" style="display: none"><i class="fa fa-arrow-left"></i></button>
+                        <button id="next_button_bottom" class="button button_primary" style="display: none"><span id="next_text_bottom">Next</span><i class="fa fa-arrow-right icon_right"></i></button>
+                        <button id="finish_button_bottom" class="button" style="display: none"><i class="fa fa-check icon_left"></i><span id="finish_text_bottom">Finish</span></button>
+                    </div>
                 </div>
                 <button id="finish_button_other" class="button" style="display: none"><i class="fa fa-check icon_left"></i><span id="finish_text_other">Finish</span></button>
                 <div class="spacer"></div>
