@@ -1,9 +1,22 @@
 <!DOCTYPE html>
 <html lang="EN">
     <head>
+        {% set page_meta = meta or {} %}
         <meta charset="UTF-8">
-        <title>Instruction</title>
+        <title>{{ page_meta.get("title", "Opus.Guide") }}</title>
         <meta name="viewport" content="width=device-width,initial-scale=1"> 
+        <meta name="description" content="{{ page_meta.get("description", "View this guide on Opus.Guide") }}">
+        <link rel="canonical" href="{{ page_meta.get("url", request.url) }}">
+        <meta property="og:title" content="{{ page_meta.get("title", "Opus.Guide") }}">
+        <meta property="og:description" content="{{ page_meta.get("description", "View this guide on Opus.Guide") }}">
+        <meta property="og:image" content="{{ page_meta.get("image", url_for('static', filename='icon.png', _external=True)) }}">
+        <meta property="og:url" content="{{ page_meta.get("url", request.url) }}">
+        <meta property="og:type" content="{{ page_meta.get("type", "article") }}">
+        <meta property="og:site_name" content="{{ page_meta.get("site_name", "Opus.Guide") }}">
+        <meta name="twitter:card" content="summary_large_image">
+        <meta name="twitter:title" content="{{ page_meta.get("title", "Opus.Guide") }}">
+        <meta name="twitter:description" content="{{ page_meta.get("description", "View this guide on Opus.Guide") }}">
+        <meta name="twitter:image" content="{{ page_meta.get("image", url_for('static', filename='icon.png', _external=True)) }}">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
