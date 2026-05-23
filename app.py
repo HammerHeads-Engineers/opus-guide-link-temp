@@ -149,6 +149,16 @@ def first_step_image_url(instruction, url_dict):
 	return ""
 
 
+def organization_logo_meta_url(instruction):
+	if instruction.get("organization_scope") == "personal":
+		return ""
+
+	logo_url = ensure_absolute_url(instruction.get("organization_logo_url"))
+	if "/_/theme/og_favicon_monochrome.png" in logo_url:
+		return ""
+	return logo_url
+
+
 def instruction_meta_from_payload(data):
 	meta = default_meta()
 	if not data:
@@ -161,7 +171,7 @@ def instruction_meta_from_payload(data):
 	image_url = first_step_image_url(instruction, url_dict)
 
 	if not image_url:
-		image_url = ensure_absolute_url(instruction.get("organization_logo_url"))
+		image_url = organization_logo_meta_url(instruction)
 
 	meta.update({
 		"title": title or meta["title"],
