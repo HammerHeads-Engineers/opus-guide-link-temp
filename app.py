@@ -17,6 +17,7 @@ OPUS_GUIDE_API_BASE = "https://app.opus.guide/_/api"
 OPUS_GUIDE_LINK_ORIGIN = "https://link.opus.guide"
 DEFAULT_META_TITLE = "Opus.Guide"
 DEFAULT_META_DESCRIPTION = "View this guide on Opus.Guide"
+DEFAULT_META_IMAGE = "og_default.png"
 META_CACHE_TTL_SECONDS = 300
 _api_payload_cache = {}
 
@@ -86,7 +87,7 @@ def default_meta():
 	return {
 		"title": DEFAULT_META_TITLE,
 		"description": DEFAULT_META_DESCRIPTION,
-		"image": urllib_parse.urljoin(public_url_root(), url_for("static", filename="icon.png").lstrip("/")),
+		"image": urllib_parse.urljoin(public_url_root(), url_for("static", filename=DEFAULT_META_IMAGE).lstrip("/")),
 		"url": current_public_url(),
 		"type": "article",
 		"site_name": "Opus.Guide",
